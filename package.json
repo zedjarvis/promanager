@@ -1,0 +1,21 @@
+{
+    "name": "haftmanager-mono",
+    "version": "0.0.1",
+    "repository": "https://github.com/zedjarvis/haftmanager.git",
+    "author": "Cedrouseroll Omondi <omondicedo@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "landingpage:dev": "cd landingpage/ && vite",
+        "landingpage:build": "cd landingpage/ && vue-tsc --noEmit && vite build",
+        "landingpage:preview": "cd landingpage/ && vite preview",
+        "landingpage:lint": "cd landingpage/ && eslint . --fix --ignore-path .gitignore",
+        "haftmanager:dev": "cd haftmanager/ && vite",
+        "haftmanager:build": "cd haftmanager/ && vue-tsc --noEmit && vite build",
+        "haftmanager:preview": "cd haftmanager/ && vite preview",
+        "haftmanager:lint": "cd haftmanager/ && eslint . --fix --ignore-path .gitignore"
+    }
+}
