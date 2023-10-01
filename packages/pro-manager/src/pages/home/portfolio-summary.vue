@@ -1,14 +1,43 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+definePage({
+  name: "PortfolioSummary",
+  meta: {
+    canFilter: false,
+  }
+})
+
+const { height } = useWindowSize()
+
+const mainH = computed(() => height.value - 49)
+const containerH = computed(() => mainH.value - 96)
+</script>
 
 <template>
-  <h1>THIS IS THE PORTFOLIO SUMMARY PAGE</h1>
-</template>
+  <div class="font-inter w-full!" :style="{ 'height': `${mainH}px` }">
+    <div class="w-full bg-surface h-24 pt-3 pb-6 px-2 px-md-6">
+      <h1 class="font-space text-xl md:text-3xl">Good Morning, Cedrouseroll</h1>
+      <p class="text-sm">July 19, 2023</p>
+    </div>
+    <VContainer fluid class="pa-0">
+      <VRow no-gutters :style="{ 'height': `${containerH}px` }">
+        <VCol cols="12" lg="6" class="ma-0 pa-0">
+          <VRow no-gutters class="flex-column h-100">
+            <VCol class="d-flex h-50">01</VCol>
+            <VDivider />
+            <VCol class="d-flex">02</VCol>
+          </VRow>
+        </VCol>
+        <VDivider vertical class="d-none d-lg-flex" />
+        <VCol cols="12" lg="6" class="ma-0 pa-0">
+          <VRow no-gutters class="h-100">
+            <VCol cols="12" lg="6" class="d-flex">03</VCol>
+            <VDivider vertical class="d-none d-lg-flex" />
+            <VCol cols="12" lg="6" class="d-flex">04</VCol>
+          </VRow>
+        </VCol>
+      </VRow>
+    </VContainer>
 
-<route>
-  {
-    name: "portfolio-summary",
-    meta: {
-      requiresAuth: true
-    }
-  }
-  </route>
+  </div>
+</template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { useParams, type RouteParams } from '@/composables';
 // assets
 
 // SEO
@@ -7,29 +7,28 @@ useHead({
   title: 'Accept Invite'
 })
 
-const password1 = ref("")
-const password2 = ref("")
+const params = useParams<RouteParams<'AcceptInvite'>>()
+
+const activateData = reactive({
+  new_password: '',
+  re_new_password: '',
+  uid: params.value.uid,
+  token: params.value.token
+})
+
 const form = ref(false)
 const emailInput = ref(null)
 const isLoading = ref(false)
 
-const passRules = [
-  (value: string) => {
-    if (value) return true
-    return 'Enter your Password!'
-  },
-  (value: string) => {
-    if (value?.length >= 8) return true
-
-    return 'Password must be atleast 8 characters.'
-  }
-]
+const requiredRule = (value: string) => !!value || 'Password is required.'
+const lengthRule = (value: string) => value.length >= 8 || 'Password must be atleast 8 characters.'
+const equalRule = (value: string) => value == activateData.new_password || 'Passwords don\'t match.'
 
 
 const handleSubmit = (): void => {
-  // @ts-ignore
-  emailInput.value!.validate()
-  if (form.value) alert("submitting")
+  if (form.value) {
+    alert('submitted...')
+  }
   else return
 }
 </script>
@@ -40,17 +39,19 @@ const handleSubmit = (): void => {
     <p class="info-text mb-6">To access your account, create password and proceed to Activate.
     </p>
   </div>
-  <VForm v-model="form" @submit.prevent="handleSubmit" validate-on="input">
-    <VTextField ref="emailInput" class="my-4" density="comfortable" variant="outlined" label="Your Password" rounded="0"
-      type="password" id="password1" name="password1" v-model="password1" :rules="passRules" autofocus required>
+  <VForm v-model="form" @submit.prevent="handleSubmit" validate-on="lazy input">
+    <VTextField ref="emailInput" class="my-4 text-left" density="comfortable" variant="outlined" label="Your Password"
+      rounded="0" type="password" id="password1" name="password1" v-model="activateData.new_password"
+      :rules="[requiredRule, lengthRule]" required>
     </VTextField>
 
-    <VTextField ref="emailInput" class="my-4" density="comfortable" variant="outlined" label="Retype Password" rounded="0"
-      type="password" id="password2" name="password2" v-model="password2" :rules="passRules" autofocus required>
+    <VTextField ref="emailInput" class="my-4 text-left" density="comfortable" variant="outlined" label="Retype Password"
+      rounded="0" type="password" id="password2" name="password2" v-model="activateData.re_new_password"
+      :rules="[requiredRule, equalRule]" required>
     </VTextField>
 
     <VBtn height="52" :loading="isLoading" type="submit" block class="text-capitalize my-3"
-      style="font-size: 1rem; font-weight: 400;">Continue
+      style="font-size: 1rem; font-weight: 400;">Activate
     </VBtn>
     <RouterLink to="/">
       <p class="info-text link-text text-primary">Back to Pro-Manager.com</p>

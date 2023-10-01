@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { axiosPublic } from '@/plugins/axios';
 // assets
 
 // SEO
@@ -9,25 +9,18 @@ useHead({
 
 const email = ref("")
 const form = ref(false)
-const emailInput = ref(null)
 const isLoading = ref(false)
 
 const emailRules = [
-  (value: string) => {
-    if (value) return true
-    return 'E-mail address Required!'
-  },
-  (value: string) => {
-    if (/.+@.+\..+/.test(value)) return true
-    return 'E-mail must be valid!'
-  },
+  (value: string) => !!value || 'E-mail is required.',
+  (value: string) => (/.+@.+\..+/.test(value)) || 'E-mail must be valid!'
 ]
 
 
-const handleSubmit = (): void => {
-  // @ts-ignore
-  emailInput.value!.validate()
-  if (form.value) alert("submitting")
+const handleSubmit = async (): Promise<void> => {
+  if (form.value) {
+    await axiosPublic.post('/')
+  }
   else return
 }
 </script>
@@ -39,14 +32,10 @@ const handleSubmit = (): void => {
     </p>
   </div>
   <VForm v-model="form" @submit.prevent="handleSubmit" validate-on="input">
-
-
-    <VTextField ref="emailInput" class="my-4" density="comfortable" variant="outlined" label="Email address" rounded="0"
-      type="email" id="email" name="email" v-model="email" :rules="emailRules" autofocus required>
+    <VTextField ref="emailInput" class="my-4 text-left" density="comfortable" variant="outlined" label="Email address"
+      rounded="0" type="email" id="email" name="email" v-model="email" :rules="emailRules" autofocus required>
     </VTextField>
-
-
-    <VBtn height="52" :loading="isLoading" type="submit" block class="text-capitalize my-3"
+    <VBtn height="52" :loading="isLoading" type="submit" block class="text-capitalize mt-4 mb-6"
       style="font-size: 1rem; font-weight: 400;">Continue
     </VBtn>
     <RouterLink to="/">

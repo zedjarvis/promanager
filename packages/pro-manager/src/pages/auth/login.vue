@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/store';
 
 // assets
 import GoogleIcon from '@images/google-icon.svg';
@@ -10,45 +11,33 @@ useHead({
   title: 'Login'
 })
 
+definePage({
+  name: 'Login',
+})
+
+const authStore = useAuthStore()
+const { isLoading, Msg, hasError } = storeToRefs(authStore)
 const windowStep = ref(1)
 const loginData = ref({ email: '', password: '' })
 const form = ref(false)
-const emailInput = ref(null)
-const isLoading = ref(false)
 
 const emailRules = [
-  (value: string) => {
-    if (value) return true
-    return 'E-mail address Required!'
-  },
-  (value: string) => {
-    if (/.+@.+\..+/.test(value)) return true
-    return 'E-mail must be valid!'
-  },
+  (value: string) => !!value || 'E-mail is required.',
+  (value: string) => (/.+@.+\..+/.test(value)) || 'E-mail must be valid!'
 ]
 
 const passRules = [
-  (value: string) => {
-    if (value) return true
-    return 'Enter your Password!'
-  },
-  (value: string) => {
-    if (value?.length >= 8) return true
-
-    return 'Password must be atleast 8 characters.'
-  }
+  (value: string) => !!value || 'Password is required.',
+  (value: string) => value.length >= 8 || 'Password must be atleast 8 characters.'
 ]
 
 const mainText = computed(() => windowStep.value == 1 ? 'Welcome' : 'Enter your password')
+// const nextUrl = computed(() => returnUrl ? returnUrl.value : '/')
 
-const handleSubmit = (): void => {
-  // @ts-ignore
-  emailInput.value!.validate()
-  if (form.value && windowStep.value == 1) {
-    windowStep.value = 2
-  } else if (form.value && windowStep.value == 2) {
-    alert('submitting')
-  } else return
+const handleSubmit = async () => {
+  if (form.value && windowStep.value == 1) windowStep.value = 2
+  else if (form.value && windowStep.value == 2) await authStore.login(loginData.value)
+  else return
 }
 
 function handleEdit(): void {
@@ -64,6 +53,7 @@ function handleEdit(): void {
     <p class="info-text mb-6">Login to your account below to get started. For more info visit
       pro-manager.com</p>
   </div>
+
   <VForm v-model="form" @submit.prevent="handleSubmit" validate-on="input">
     <VWindow v-model="windowStep">
       <VWindowItem :value="1">
@@ -80,13 +70,13 @@ function handleEdit(): void {
         <div class="or-divider d-flex text-uppercase pt-6 mb-6 text-center">
           <span>Or</span>
         </div>
-        <VTextField v-if="windowStep == 1" ref="emailInput" class="my-4" density="comfortable" variant="outlined"
+        <VTextField v-if="windowStep == 1" ref="emailInput" class="my-4 text-left" density="comfortable" variant="outlined"
           label="Email address" rounded="0" type="email" id="email" name="email" v-model="loginData.email"
           :rules="emailRules" autofocus required>
         </VTextField>
       </VWindowItem>
       <VWindowItem :value="2">
-        <VTextField v-if="windowStep == 2" ref="emailInput" class="my-4" density="comfortable" variant="outlined"
+        <VTextField v-if="windowStep == 2" ref="emailInput" class="my-4 text-left" density="comfortable" variant="outlined"
           rounded="0" v-model="loginData.email" readonly>
           <template v-slot:append-inner>
             <VBtn @click="handleEdit" class="text-capitalize" :ripple="false" variant="plain">
@@ -94,7 +84,7 @@ function handleEdit(): void {
             </VBtn>
           </template>
         </VTextField>
-        <VTextField v-if="windowStep == 2" class="my-3" density="comfortable" variant="outlined" label="Password"
+        <VTextField v-if="windowStep == 2" class="my-3 text-left" density="comfortable" variant="outlined" label="Password"
           rounded="0" type="Password" v-model="loginData.password" :rules="passRules" required autofocus>
         </VTextField>
         <RouterLink to="/auth/password/reset">
@@ -111,13 +101,13 @@ function handleEdit(): void {
       </RouterLink>
     </p>
   </VForm>
+  <VSnackbar color="error" v-model="hasError" timeout="-1" elevation="16">
+    {{ Msg }}
+    <template v-slot:actions>
+      <VIcon icon="i-carbon-close" @click="hasError = false" />
+    </template>
+  </VSnackbar>
 </template>
-
-<route lang="json">
-{
-  "name": "Login"
-}
-</route>
 
 <style lang="scss" scoped>
 .main-text {

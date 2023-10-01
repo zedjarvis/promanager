@@ -6,6 +6,9 @@ import { useDisplay } from "vuetify";
 import boardImg from "@assets/images/Carousel_Image_Boards_2x.png";
 import cardImg from "@assets/images/Carousel_Image_Cards_2x.png";
 import listImg from "@assets/images/Carousel_Image_Lists_2x.png";
+import cogSvg from '@assets/images/Gears.svg';
+import puzzleSvg from "@assets/images/Integrations_Puzzle.svg";
+import searchSvg from '@assets/images/Search_Value.svg';
 import heroImg from "@assets/images/hero.png";
 import folderImg from "@assets/images/icon-content-folder_2x.png";
 
@@ -21,6 +24,7 @@ const card3 = computed(() => aboutCard.value == 'cards')
 </script>
 
 <template>
+  <!-- HERO SECTION  -->
   <VSheet tag="section" id="hero" class="hero">
     <VContainer fluid>
       <VRow no-gutters>
@@ -54,10 +58,11 @@ const card3 = computed(() => aboutCard.value == 'cards')
     </VContainer>
   </VSheet>
 
+  <!-- ABOUT SECTION  -->
   <VSheet tag="section" id="about" class="font-inter py-16"
     style="background: linear-gradient(0deg, rgb(230, 252, 255), #eff0f5) 0% 0% / auto repeat scroll padding-box border-box rgb(178, 212, 255)">
     <VContainer>
-      <VRow class="mb-2">
+      <VRow class="mb-4">
         <VCol cols="12" md="7">
           <p class="mb-2" style="font-size: 16px; font-weight: 500; text-transform: uppercase;">ProManager 101</p>
           <h2 class="pb-4 mb-2" style="font-size: 36px; font-weight: 500; line-height: 48px; color: #091E42;">A
@@ -120,19 +125,20 @@ const card3 = computed(() => aboutCard.value == 'cards')
     </VContainer>
   </VSheet>
 
+  <!-- WORKFLOW SECTION  -->
   <VSheet tag="section" id="workflow" class="font-inter py-16">
     <VContainer>
-      <VRow>
+      <VRow no-gutters>
         <VCol cols="12" md="8">
           <p class="mb-2" style="font-size: 16px; font-weight: 500; text-transform: uppercase;">ProManager in action</p>
-          <h2 class="pb-4 mb-2" style="font-size: 36px; font-weight: 500; line-height: 48px; color: #091E42;">A
+          <h2 class="pb-4 mb-2 font-space" style="font-size: 36px; font-weight: 500; line-height: 48px; color: #091E42;">
             Workflows for any project, big or small</h2>
         </VCol>
         <VCol></VCol>
       </VRow>
       <VSlideGroup class="pa-0 ma-0">
-        <VSlideGroupItem class="pa-0 ma-0">
-          <VCard rounded="lg" :elevation="5" max-width="350" class="ma-6 pt-16 pb-14">
+        <VSlideGroupItem class="">
+          <VCard rounded="lg" :elevation="2" max-width="350" class="ma-1 pt-16 pb-14">
             <div
               style="height: 48px; width: 100%; display: inline-block; background-color: #FF7452; position: absolute; top: 0; left: 0; overflow: hidden;">
             </div>
@@ -151,14 +157,26 @@ const card3 = computed(() => aboutCard.value == 'cards')
           </VCard>
         </VSlideGroupItem>
       </VSlideGroup>
+      <VRow no-gutters class="mt-16">
+        <VCol cols="12" md="8">
+          <p class="pb-4 mb-2" style="font-size: 20px; font-weight: 400; line-height: 30px; color: #091E42;">
+            No need to start from scratch. Jump-start your workflow with a proven playbook designed for different teams.
+            Customize it to make it yours.
+          </p>
+        </VCol>
+        <VCol class="d-flex justify-md-end">
+          <VBtn height="50" variant="outlined" class="text-uppercase">Explore all use cases</VBtn>
+        </VCol>
+      </VRow>
     </VContainer>
   </VSheet>
 
-  <VSheet tag="section" id="ui" class="d-flex justify-center align-center text-center pt-16"
+  <!-- UI SECTION  -->
+  <VSheet tag="section" id="ui" class="d-flex justify-center align-center text-center pt-16 font-inter"
     style="background: url('/images/ViewsBackground_Left_Narrow.svg') left center / contain no-repeat scroll padding-box border-box, url('/images/ViewsBackground_Right_Narrow.svg') right center / contain no-repeat scroll padding-box border-box, linear-gradient(240deg, rgb(0, 184, 217), rgb(0, 101, 255)) 0% 0% / auto repeat scroll padding-box border-box rgb(0, 101, 255);">
     <VContainer class="text-center">
-      <VResponsive width="800" class="mx-auto pb-16">
-        <h2 class="pb-4 text-white" style="font-size: 36px; font-weight: 500; line-height: 48px;">
+      <VResponsive width="750" class="mx-auto pb-16">
+        <h2 class="pb-4 text-white font-space" style="font-size: 36px; font-weight: 500; line-height: 48px;">
           See work in a whole new way
         </h2>
         <p class="text-white mb-4" style="font-size: 20px; font-weight: 400;">View your team’s projects from every angle
@@ -168,7 +186,7 @@ const card3 = computed(() => aboutCard.value == 'cards')
         <VBtn height="50" border>Discover all PM views</VBtn>
       </VResponsive>
       <VCard class="pa-8">
-        <VRow>
+        <VRow no-gutters>
           <VCol cols="12" md="7"></VCol>
           <VCol cols="12" md="5">
             <div class="d-flex align-center mb-8">
@@ -185,7 +203,7 @@ const card3 = computed(() => aboutCard.value == 'cards')
         </VRow>
       </VCard>
       <VCard :elevation="5" class="pa-8 mt-16 mb-n16">
-        <VRow>
+        <VRow no-gutters>
           <VCol cols="12" md="5">
             <div class="d-flex align-center mb-8">
               <h3 class="text-uppercase" style="font-size: 16px; font-weight: 500; line-height: 20px;">Stay on top of
@@ -206,6 +224,76 @@ const card3 = computed(() => aboutCard.value == 'cards')
     </VContainer>
   </VSheet>
 
+  <!-- GROW SECTION  -->
+  <VSheet tag="section" id="grow-section" class="font-inter py-16">
+    <VContainer class="pt-16">
+      <VRow no-gutters>
+        <VCol cols="12" md="8">
+          <p class="mb-2" style="font-size: 16px; font-weight: 500; text-transform: uppercase;">Powerful ways to grow</p>
+          <h2 class="pb-4 mb-2 font-space" style="font-size: 36px; font-weight: 500; line-height: 48px; color: #091E42;">
+            Do more with ProManager
+          </h2>
+          <p class="mb-4" style="font-size: 20px; font-weight: 400;">
+            ProManager's intuitive features give any team the ability to quickly set up and customize workflows for just
+            about
+            anything.
+          </p>
+        </VCol>
+        <VCol></VCol>
+      </VRow>
+      <VRow>
+        <VCol cols="12" md="4">
+          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background">
+            <div>
+              <VImg :src="puzzleSvg" height="100" width="100" />
+              <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
+                Integrations
+              </h3>
+              <p style="font-size: 16px; line-height: 24px;">
+                Connect the apps your team already uses into your Trello
+                workflow or add a Power-Up to fine-tune your specific needs.
+              </p>
+            </div>
+            <VBtn height="50" variant="outlined" class="mt-6 text-uppercase">Browse
+              Integrations</VBtn>
+          </VCard>
+        </VCol>
+        <VCol cols="12" md="4">
+          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background">
+            <div>
+              <VImg :src="cogSvg" height="100" width="100" />
+              <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
+                PM
+                Automation
+              </h3>
+              <p style="font-size: 16px; line-height: 24px;">
+                No-code automation is built into every Trello board. Focus on
+                the work that matters most and let the robots do the rest.
+              </p>
+            </div>
+            <VBtn height="50" variant="outlined" class="mt-6 text-uppercase">Get to know
+              automation</VBtn>
+          </VCard>
+        </VCol>
+        <VCol cols="12" md="4">
+          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background">
+            <div>
+              <VImg :src="searchSvg" height="100" width="100" />
+              <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
+                PM Enterprice
+              </h3>
+              <p style="font-size: 16px; line-height: 24px;">
+                The productivity tool teams love, paired with the features and security needed for scale.
+              </p>
+            </div>
+            <VBtn height="50" variant="outlined" class="mt-6 text-uppercase">Explore Enterprice</VBtn>
+          </VCard>
+        </VCol>
+      </VRow>
+    </VContainer>
+  </VSheet>
+
+  <!-- PRICING SECTION  -->
   <VSheet tag="section" id="pricing" class="font-inter py-16">
     <VContainer>
       <VCard title="Pricing"></VCard>
@@ -218,7 +306,7 @@ const card3 = computed(() => aboutCard.value == 'cards')
   </VSheet>
 
 
-  <!-- SOME SECTION -->
+  <!-- CTA SECTION -->
   <VSheet tag="section" id="cta" class="d-flex justify-center align-center text-center py-16"
     style="background: url('/images/BigSwingFooterHeroGraphic__Left.svg') left center / contain no-repeat scroll padding-box border-box, url('/images/BigSwingFooterHeroGraphic__Right.svg') right center / contain no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto repeat scroll padding-box border-box rgb(82, 67, 170);">
     <VContainer class="text-centers">

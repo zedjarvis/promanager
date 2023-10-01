@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { useAuthStore } from '@/store';
 // assets
 import GoogleIcon from '@images/google-icon.svg';
 import MsIcon from '@images/microsoft-icon.svg';
@@ -9,50 +9,37 @@ useHead({
   title: 'Register Account'
 })
 
+const authStore = useAuthStore()
+const { isLoading, Msg, hasError } = storeToRefs(authStore)
+
 const windowStep = ref(1)
-const loginData = ref({ email: '', password: '' })
+const registerData = ref({ email: '', password: '' })
 const form = ref(false)
-const emailInput = ref(null)
-const isLoading = ref(false)
 
 const emailRules = [
-  (value: string) => {
-    if (value) return true
-    return 'E-mail address Required!'
-  },
-  (value: string) => {
-    if (/.+@.+\..+/.test(value)) return true
-    return 'E-mail must be valid!'
-  },
+  (value: string) => !!value || 'E-mail is required.',
+  (value: string) => (/.+@.+\..+/.test(value)) || 'E-mail must be valid!'
 ]
 
 const passRules = [
-  (value: string) => {
-    if (value) return true
-    return 'Enter your Password!'
-  },
-  (value: string) => {
-    if (value?.length >= 8) return true
-
-    return 'Password must be atleast 8 characters.'
-  }
+  (value: string) => !!value || 'Password is required.',
+  (value: string) => value.length >= 8 || 'Password must be atleast 8 characters.'
 ]
 
-const mainText = computed(() => windowStep.value == 1 ? 'Create Your Account' : 'Enter your password')
+const mainText = computed(() => windowStep.value == 1 ? 'Create Your Account' : 'Create password')
 
-const handleSubmit = (): void => {
-  // @ts-ignore
-  emailInput.value!.validate()
-  if (form.value && windowStep.value == 1) {
-    windowStep.value = 2
-  } else if (form.value && windowStep.value == 2) {
-    alert('submitting')
-  } else return
+const handleSubmit = async (): Promise<void> => {
+  if (form.value && windowStep.value == 1) windowStep.value = 2
+  else if (form.value && windowStep.value == 2) {
+    await authStore.register(registerData.value)
+    await authStore.login(registerData.value)
+  }
+  else return
 }
 
 function handleEdit(): void {
   windowStep.value = 1
-  loginData.value.password = ""
+  registerData.value.password = ""
 }
 
 </script>
@@ -60,7 +47,7 @@ function handleEdit(): void {
 <template>
   <h1 class="main-text mb-4 mt-6">{{ mainText }}</h1>
   <div class="text-center">
-    <p class="info-text mb-6">Sign Up to ProjectManager.com Inc to continue to ProjectManager.com.</p>
+    <p class="info-text mb-6">Sign Up to Pro-Manager.com to continue. It's easy and it takes less than a minute.</p>
   </div>
   <VForm v-model="form" @submit.prevent="handleSubmit" validate-on="input">
     <VWindow v-model="windowStep">
@@ -78,26 +65,23 @@ function handleEdit(): void {
         <div class="or-divider d-flex text-uppercase pt-6 mb-6 text-center">
           <span>Or</span>
         </div>
-        <VTextField v-if="windowStep == 1" ref="emailInput" class="my-4" density="comfortable" variant="outlined"
-          label="Email address" rounded="0" type="email" id="email" name="email" v-model="loginData.email"
-          :rules="emailRules" autofocus required>
+        <VTextField v-if="windowStep == 1" ref="emailInput" class="my-4 text-left" density="comfortable"
+          variant="outlined" label="Email address" rounded="0" type="email" id="email" name="email"
+          v-model="registerData.email" :rules="emailRules" autofocus required>
         </VTextField>
       </VWindowItem>
       <VWindowItem :value="2">
         <VTextField v-if="windowStep == 2" ref="emailInput" class="my-4" density="comfortable" variant="outlined"
-          rounded="0" v-model="loginData.email" readonly>
+          rounded="0" v-model="registerData.email" readonly>
           <template v-slot:append-inner>
             <VBtn @click="handleEdit" class="text-capitalize" :ripple="false" variant="plain">
               <span class="text-primary font-weight-bold" style="font-size: 14px;">Edit</span>
             </VBtn>
           </template>
         </VTextField>
-        <VTextField v-if="windowStep == 2" class="my-3" density="comfortable" variant="outlined" label="Password"
-          rounded="0" type="Password" v-model="loginData.password" :rules="passRules" required autofocus>
+        <VTextField v-if="windowStep == 2" class="mt-3 mb-6" density="comfortable" variant="outlined" label="Password"
+          rounded="0" type="Password" v-model="registerData.password" :rules="passRules" required autofocus>
         </VTextField>
-        <RouterLink to="/auth/forgot-password">
-          <p class="info-text link-text mt-4 text-left text-primary">Forgot your password?</p>
-        </RouterLink>
       </VWindowItem>
     </VWindow>
     <VBtn height="52" :loading="isLoading" type="submit" block class="text-capitalize my-3"
@@ -109,6 +93,12 @@ function handleEdit(): void {
       </RouterLink>
     </p>
   </VForm>
+  <VSnackbar color="error" v-model="hasError" timeout="-1" elevation="16">
+    {{ Msg }}
+    <template v-slot:actions>
+      <VIcon icon="i-carbon-close" @click="hasError = false" />
+    </template>
+  </VSnackbar>
 </template>
 
 <route lang="json">

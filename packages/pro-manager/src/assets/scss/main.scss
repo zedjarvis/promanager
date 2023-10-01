@@ -1,9 +1,38 @@
 @use 'fonts';
+@import 'pretty-checkbox/src/pretty-checkbox.scss';
 
-*, html, body {
+*,
+html,
+body {
     box-sizing: border-box;
     margin: 0;
     scroll-behavior: smooth;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(var(--v-theme-secondary));
+    border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+body {
+    background-color: rgb(var(--v-theme-background));
 }
 
 a {

@@ -7,9 +7,26 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AddMenu: typeof import('./src/components/sidenav/AddMenu.vue')['default']
+    AssignedTo: typeof import('./src/components/@core/AssignedTo.vue')['default']
+    Avatar: typeof import('./src/components/@core/Avatar.vue')['default']
+    CreateLeadCard: typeof import('./src/components/sidenav/CreateLeadCard.vue')['default']
+    CreateProjectCard: typeof import('./src/components/sidenav/CreateProjectCard.vue')['default']
+    CreateTaskCard: typeof import('./src/components/sidenav/CreateTaskCard.vue')['default']
+    HelpMenu: typeof import('./src/components/sidenav/HelpMenu.vue')['default']
+    InviteUserCard: typeof import('./src/components/sidenav/InviteUserCard.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
+    MenuItem: typeof import('./src/components/sidenav/MenuItem.vue')['default']
+    NavLink: typeof import('./src/components/sidenav/NavLink.vue')['default']
+    NavLinkBtn: typeof import('./src/components/sidenav/NavLinkBtn.vue')['default']
+    NavLinkItem: typeof import('./src/components/sidenav/NavLinkItem.vue')['default']
+    NotificationMenu: typeof import('./src/components/sidenav/NotificationMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheLogo: typeof import('./src/components/TheLogo.vue')['default']
+    TopLink: typeof import('./src/components/sidenav/TopLink.vue')['default']
+    UserBtn: typeof import('./src/components/sidenav/UserBtn.vue')['default']
+    UserMenu: typeof import('./src/components/sidenav/UserMenu.vue')['default']
+    UserProfileCard: typeof import('./src/components/@core/UserProfileCard.vue')['default']
   }
 }

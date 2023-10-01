@@ -1,5 +1,11 @@
-export type ID = number | null
+export type ID = string | number | null
+export type Status = 'NEW' | 'IN PROGRESS' | 'ON HOLD' | 'COMPLETE' | 'CANCELED'
+export type Priority = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' | 'NONE'
 
+export interface LoginPayload {
+  email: string
+  password: string
+}
 export interface User {
   id: ID
   email: string
@@ -16,6 +22,44 @@ export interface Profile {
   avatar?: string
 }
 
-export interface Notification {
-  id: ID,
+export interface UserNotification {
+  id: ID
+  verb: string
+  description: string | null
+  level: "success" | "info" | "warning" | "error"
+  unread: boolean
+  timestamp: string
+  data: any
+  actor: User | null
+}
+
+export interface Project {
+  id: ID
+  name: string
+  desc: string
+  target_date: Date
+  working_days: string[]
+  manager?: User
+  lead?: Lead
+  status: Status
+  priority: Priority
+  default_rate?: string
+  budget?: string
+}
+
+export interface Lead {
+  id: ID
+  title: string
+  email: string
+  phone: string
+}
+
+export interface Task {
+  id: ID
+  done: boolean
+  name: string
+  desc: string
+  start_date: Date
+  end_date: Date
+  assigned_to: User[]
 }

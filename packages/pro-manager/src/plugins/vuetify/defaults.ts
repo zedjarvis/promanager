@@ -70,7 +70,6 @@ export default {
   },
   VSelect: {
     variant: 'outlined',
-    color: 'primary',
     hideDetails: 'auto',
   },
   VRangeSlider: {
@@ -98,8 +97,8 @@ export default {
   },
   VTextField: {
     variant: 'outlined',
-    color: 'default',
     hideDetails: 'auto',
+    rounded: 0
   },
   VAutocomplete: {
     variant: 'outlined',
