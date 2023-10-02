@@ -14,6 +14,8 @@ const taskDialog = ref(false)
 const projectDialog = ref(false)
 const leadDialog = ref(false)
 const inviteDialog = ref(false)
+
+
 </script>
 
 <template>
@@ -52,22 +54,25 @@ const inviteDialog = ref(false)
   </VMenu>
 
   <!-- 👉 CREATE NEW TASK MODAL  -->
-  <VDialog v-model="taskDialog" persistent transition="dialog-top-transition" :scrim="false" width="450">
+  <VDialog absolute eager no-click-animation v-model="taskDialog" transition="dialog-top-transition" persistent
+    :scrim="false" width="450">
     <CreateTaskCard @close="taskDialog = false" />
   </VDialog>
 
   <!-- 👉 CREATE NEW LEAD MODAL  -->
-  <VDialog v-model="leadDialog" scrollable transition="dialog-top-transition" :scrim="false" width="450">
+  <VDialog absolute eager no-click-animation v-model="leadDialog" scrollable transition="dialog-top-transition"
+    :scrim="false" width="450">
     <CreateLeadCard @close="leadDialog = false" />
   </VDialog>
 
   <!-- 👉 CREATE NEW PROJECT MODAL  -->
-  <VDialog v-model="projectDialog" persistent transition="dialog-top-transition" :scrim="false" width="450">
+  <VDialog absolute eager no-click-animation v-model="projectDialog" persistent transition="dialog-top-transition"
+    :scrim="false" width="450">
     <CreateProjectCard @close="projectDialog = false" />
   </VDialog>
 
   <!-- 👉 INVITE NEW USER MODAL  -->
-  <VDialog v-model="inviteDialog" persistent transition="dialog-top-transition" :scrim="false" width="800">
+  <VDialog absolute eager no-click-animation v-model="inviteDialog" persistent transition="dialog-top-transition"
+    :scrim="false" width="800">
     <InviteUserCard @close="inviteDialog = false" />
-  </VDialog>
-</template>
+</VDialog></template>

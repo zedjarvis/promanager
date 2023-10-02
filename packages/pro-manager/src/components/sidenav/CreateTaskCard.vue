@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/store';
+import { User } from '@/utils/types';
+
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
 
+const authStore = useAuthStore()
 const newTask = ref('')
+const { currentUser } = storeToRefs(authStore)
+const assigned = ref<User[]>([currentUser.value])
 const form = ref()
 
 const TaskRules = [
@@ -18,9 +24,9 @@ function handleSubmit() {
 </script>
 
 <template>
-  <VCard border class="pa-5">
+  <VCard border class="pa-5" width="450">
     <div class="flex items-center justify-between w-full pa-0 mb-4">
-      <VCardTitle class="font-space pa-0">New Task</VCardTitle>
+      <VCardTitle v-draggable class="font-space pa-0">New Task</VCardTitle>
       <VIcon @click="emit('close')" icon="i-carbon-close"></VIcon>
     </div>
     <VForm v-model="form" @submit.prevent="handleSubmit" validate-on="input">
@@ -31,7 +37,7 @@ function handleSubmit() {
       </VCardItem>
       <VCardItem class="pa-0 mb-4">
         <p class="uppercase mb-1 text-sm">Assigned to</p>
-        <AssignedTo />
+        <AssignedTo :assigned="assigned" :can_add="true" />
       </VCardItem>
       <VCardItem class="pa-0 mb-4">
         <p class="uppercase mb-1 text-sm">Add to Project</p>

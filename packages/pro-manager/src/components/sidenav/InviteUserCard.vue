@@ -19,7 +19,7 @@ function handleSubmit() {
 <template>
   <VCard border class="pa-0">
     <div class="flex items-center justify-between w-full pa-3">
-      <VCardTitle class="font-space pa-0">Invite People</VCardTitle>
+      <VCardTitle v-draggable class="font-space pa-0">Invite People</VCardTitle>
       <VIcon @click="emit('close')" icon="i-carbon-close"></VIcon>
     </div>
     <VDivider />
@@ -38,9 +38,9 @@ function handleSubmit() {
           <VTextField rounded="0" density="compact" placeholder="Email"></VTextField>
         </div>
         <div class="relative">
-            <p class="text-xs mb-1 uppercase">Role</p>
-            <VSelect menu-icon="i-carbon-caret-down" :items="['Member', 'Manager', 'Admin']" rounded="0"
-              variant="outlined" density="compact" single-line clearable value="Member"></VSelect>
+          <p class="text-xs mb-1 uppercase">Role</p>
+          <VSelect menu-icon="i-carbon-caret-down" :items="['Member', 'Manager', 'Admin']" rounded="0" variant="outlined"
+            density="compact" single-line clearable value="Member"></VSelect>
           <VIcon class="absolute -right-7 top-45%" icon="i-carbon-trash-can"></VIcon>
         </div>
 

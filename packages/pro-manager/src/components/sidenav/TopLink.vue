@@ -12,9 +12,12 @@ const { icon, url } = toRefs(props)
 </script>
 
 <template>
-  <RouterLink class="inline-flex items-center justify-center logo" :to="url">
+  <RouterLink v-if="url" class="inline-flex items-center justify-center logo" :to="url">
     <VIcon size="x-small" :icon="icon" />
   </RouterLink>
+  <span v-else tabindex="0" class="inline-flex items-center justify-center logo">
+    <VIcon size="x-small" :icon="icon" />
+  </span>
 </template>
 
 <style lang="scss" scoped>
