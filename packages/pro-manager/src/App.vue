@@ -16,12 +16,13 @@ useHead({
 })
 
 import { useTheme } from 'vuetify';
+import { useMovableDialogs } from './composables';
 import { useAppStore } from './store';
-
 
 const theme = useTheme()
 const appStore = useAppStore()
 
+useMovableDialogs() // movable dialogs
 const { isDark } = storeToRefs(appStore)
 
 theme.global.name.value = isDark.value ? 'dark' : 'light'
