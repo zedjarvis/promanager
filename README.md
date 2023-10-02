@@ -1,5 +1,7 @@
-# HAFTMANAGER MONO REPO
+# PROMANAGER MONO REPO
 
+## ProManager landingpage
+## Promanager
 ## Project setup
 
 ```
