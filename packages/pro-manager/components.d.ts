@@ -17,6 +17,7 @@ declare module 'vue' {
     InviteUserCard: typeof import('./src/components/sidenav/InviteUserCard.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     MenuItem: typeof import('./src/components/sidenav/MenuItem.vue')['default']
+    Movable: typeof import('./src/components/@core/movable.vue')['default']
     NavLink: typeof import('./src/components/sidenav/NavLink.vue')['default']
     NavLinkBtn: typeof import('./src/components/sidenav/NavLinkBtn.vue')['default']
     NavLinkItem: typeof import('./src/components/sidenav/NavLinkItem.vue')['default']

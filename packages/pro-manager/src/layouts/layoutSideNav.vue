@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouteMeta } from '@/composables';
 import { DRAWER, HOME_CURRENT_PATH, HOME_DEFAULT_PATH, RAIL } from '@/constants';
+import { useProjectStore, useTaskStore, useUsersStore } from '@/store';
 import { useDisplay } from 'vuetify';
 
 const rail = useLocalStorage(RAIL, false)
@@ -16,6 +17,11 @@ const topListRef = ref<HTMLElement | null>()
 const bottomListRef = ref<HTMLElement | null>()
 
 
+const userStore = useUsersStore()
+const projectStore = useProjectStore()
+const taskStore = useTaskStore()
+const { projects } = storeToRefs(projectStore)
+const { showTask, currentTask } = storeToRefs(taskStore)
 const routeMeta = useRouteMeta()
 const windowSize = useWindowSize()
 const topListSize = useElementSize(topListRef)
@@ -66,9 +72,27 @@ function handleUserMenu(value: boolean) {
   else menu.value = !value
 }
 
+
+onMounted(async () => {
+  await userStore.getUsers()
+  await projectStore.getProjects()
+  await taskStore.getTasks()
+})
 </script>
 
 <template>
+  <!-- 👉 TASK DETAIL VIEW  -->
+  <VNavigationDrawer :elevation="24" :scrim="false" location="right" v-model="showTask" class="w-3/5!" temporary>
+    <VToolbar height="48" class="border-b bg-surface align-center pr-3">
+      <VSpacer></VSpacer>
+      <VIcon size="small" icon="i-carbon-overflow-menu-vertical" />
+      <span class="d-inline-block w-0.5 h-15px mx-2 bg-[rgb(var(--v-theme-on-surface))] opacity-50"></span>
+      <VIcon @click="showTask = false" size="small" icon="i-carbon-close" />
+    </VToolbar>
+    <p>{{ currentTask.name }}</p>
+  </VNavigationDrawer>
+
+
   <!-- 👉 TOP NAVIGATION  -->
   <VAppBar tag="header" :elevation="0" height="48" class="bg-background pa-0 border-b align-center">
 
@@ -92,6 +116,7 @@ function handleUserMenu(value: boolean) {
           @click="home_path = '/home/task/calendar'" />
         <TopLink v-tippy="{ content: 'FILES', theme: 'light' }" icon="i-carbon-document-blank" url="/home/task/files"
           @click="home_path = '/home/task/files'" />
+        <TopLink v-tippy="{ content: 'SETTINGS', theme: 'light' }" icon="i-carbon-add" url="" @click="() => { }" />
       </div>
       <div class="col-span-1 flex shrink items-center justify-end">
         <VBtn size="small" rounded="0" color="primary" variant="flat" class="d-none d-md-flex mr-2 text-capitalize">
@@ -134,13 +159,16 @@ function handleUserMenu(value: boolean) {
     <VExpandTransition>
       <VList v-show="showPortfolio" class="pa-0 overflow-y-auto position-relative" :max-height="portfolioDropdownHeight"
         :class="{ 'hidden group-hover:block': rail && !menu }">
-        <div v-for="i in 10" :key="i" class="h-12 pl-12 flex relative">
-          <span vertical class="absolute left-0 top-0 inline-block h-0.5 w-48px border-b -rotate-90"></span>
-          <span class="absolute left-6 top-24px inline-block w-5 h-0.5 border-b"></span>
-          <span class="inline-block w-full pl-2 py-3 truncate hover:bg-[rgb(var(--v-theme-surface))]">
-            OPPORTUNITY FACTORY
-          </span>
-        </div>
+        <template v-for="(project, i) in projects" :key="i">
+          <div class="h-12 pl-12 flex relative">
+            <span vertical class="absolute left-0 top-0 inline-block h-0.5 w-48px border-b -rotate-90"></span>
+            <span class="absolute left-6 top-24px inline-block w-5 h-0.5 border-b"></span>
+            <RouterLink :to="`/portfolio/${project.id}`"
+              class="inline-block w-full pl-2 py-3 truncate hover:bg-[rgb(var(--v-theme-surface))]">
+              {{ project.name }}
+            </RouterLink>
+          </div>
+        </template>
       </VList>
     </VExpandTransition>
 
