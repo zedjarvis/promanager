@@ -1,20 +1,19 @@
 <script setup lang="ts">
 // page opgions # unplugin vue router
 definePage({
-  name: 'HomeTasks',
+  name: 'ProjectTasks',
   meta: {
     canFilter: true,
   }
 })
 
-useHead({
-  title: 'My Tasks'
-})
 
 // uitls
 import { applyDrag } from '@/utils/helpers';
+import type { Task } from '@/utils/types';
 // composables
-import { useTaskStore } from '@/store';
+import { useParams, type RouteParams } from '@/composables';
+import { useProjectStore, useTaskStore } from '@/store';
 
 // plugins
 import { Container, Draggable } from 'vue3-smooth-dnd';
@@ -23,12 +22,17 @@ import { Container, Draggable } from 'vue3-smooth-dnd';
 // plugins
 
 // variables
+const projectStore = useProjectStore()
 const taskStore = useTaskStore()
+const { projects } = storeToRefs(projectStore)
+const { showTask, currentTask } = storeToRefs(taskStore)
+const params = useParams<RouteParams<'ProjectTasks'>>()
 const isLoading = ref(true)
 
+
 const tasks = computed({
-  get: () => taskStore.tasks,
-  set: (val) => taskStore.tasks = val
+  get: () => (projects.value.find((p) => p.id == params.value.id))?.tasks,
+  set: (val) => (projects.value.find((p) => p.id == params.value.id))!.tasks = val
 })
 
 function onDrop(dropResults: any) {
@@ -36,18 +40,32 @@ function onDrop(dropResults: any) {
 }
 
 function resetTasks() {
-  taskStore.getTasks()
+  projectStore.$reset()
 }
+
+function toggleTaskDetail(task: Task) {
+  currentTask.value = task
+  showTask.value = true
+}
+
 
 onMounted(() => {
   setTimeout(() => {
     isLoading.value = false
   }, 1500)
 })
+
+watch(params, () => {
+  isLoading.value = true
+  setTimeout(() => {
+    isLoading.value = false
+  }, 1500)
+})
+
 </script>
 
 <template>
-  <VContainer fluid class="pa-0 ma-0 table w-full h-full">
+  <VContainer fluid class="pa-0 ma-0 w-full h-full">
     <VSkeletonLoader :loading="isLoading" type="table-thead, table-tbody" class="bg-background">
       <div class="grid grid-cols-12 w-full h-48px items-center border sticky! top-49px bg-background z-50 text-sm">
         <div class="pl-2">DONE</div>
@@ -79,16 +97,16 @@ onMounted(() => {
                showOnTop: true
              }">
         <Draggable v-for="(task, i) in tasks" :key="i">
-          <div
-            class="group grid grid-cols-12 w-full h-44px items-center border-b bg-background hover:bg-[rgb(var(--v-theme-surface))]/30">
+          <div @click="toggleTaskDetail(task)" :class="{ 'bg-surface opacity-70': currentTask.id == task.id && showTask }"
+            class="group grid grid-cols-12 w-full cursor-pointer h-44px items-center border-b bg-background hover:bg-[rgb(var(--v-theme-surface))]/30">
             <div class="relative! h-full flex items-center sticky left-0">
               <span class="absolute left-0 top-0 bottom-0.5 w-1 h-full bg-gray"></span>
               <span
                 class="drag-handle hidden group-hover:flex absolute left-1 top-2.5 hover:text-[rgb(var(--v-theme-primary))]">
                 <VIcon icon="i-carbon-draggable" />
               </span>
-              <VIcon @click="task.done = !task.done" class="ml-6 hover:text-[rgb(var(--v-theme-primary))]" size="x-large"
-                :icon="task.done ? 'i-carbon-checkbox-checked' : 'i-carbon-checkbox'" />
+              <VIcon @click.stop="task.done = !task.done" class="ml-6 hover:text-[rgb(var(--v-theme-primary))]"
+                size="x-large" :icon="task.done ? 'i-carbon-checkbox-checked' : 'i-carbon-checkbox'" />
             </div>
             <div class="col-span-4 pr-4 inline-block w-full truncate" :class="{ 'line-through': task.done }">{{ task.name
             }}
@@ -108,10 +126,11 @@ onMounted(() => {
             </div>
           </div>
         </Draggable>
-        <div class="grid grid-cols-12 items-center sticky bottom-0 bg-background h-44px border w-full z-50">
+        <div class="group grid grid-cols-12 items-center sticky bottom-0 bg-background h-44px border w-full z-50">
           <div class="flex items-center">
             <VIcon size="x-large" icon="i-carbon-add-filled" class="ml-6 hover:text-[rgb(var(--v-theme-primary))]" />
           </div>
+          <div class="col-span-4"><input type="text" placeholder="New Task" class="w-full border-none outline-none"></div>
         </div>
       </Container>
     </VSkeletonLoader>
