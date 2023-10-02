@@ -1,4 +1,6 @@
 export * from './app'
 export * from './auth'
 export * from './notifications'
+export * from './projects'
+export * from './tasks'
 export * from './users'

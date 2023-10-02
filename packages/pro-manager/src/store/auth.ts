@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     accessToken: useLocalStorage(ACCESS_TOKEN, ''),
     refreshToken: useLocalStorage(REFRESH_TOKEN, ''),
-    currentUser: null as User | null,
+    currentUser: {} as User,
     returnUrl: '',
     isLoading: false,
     hasError: false,
@@ -70,7 +70,7 @@ export const useAuthStore = defineStore('auth', {
       await axiosPrivate.post('/auth/jwt/destroy/', { refresh: this.refreshToken }).
         then((response) => this.status = response.status).
         catch((error) => console.log(error))
-      this.currentUser = null
+      this.currentUser = null as unknown as User
       this.accessToken = ''
       this.refreshToken = ''
 
