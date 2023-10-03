@@ -3,6 +3,7 @@ import { Project } from '@/utils/types'
 export const useProjectStore = defineStore('projects', {
   state: () => ({
     projects: [] as Project[],
+    currentProject: {} as Project
   }),
   actions: {
     async getProjects() {

@@ -4,6 +4,7 @@ definePage({
   name: 'HomeTasks',
   meta: {
     canFilter: true,
+    isHome: true,
   }
 })
 

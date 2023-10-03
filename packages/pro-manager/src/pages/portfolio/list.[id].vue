@@ -4,13 +4,14 @@ definePage({
   name: 'ProjectTasks',
   meta: {
     canFilter: true,
+    isPortfolio: true,
   }
 })
 
 
 // uitls
 import { applyDrag } from '@/utils/helpers';
-import type { Task } from '@/utils/types';
+import type { Project, Task } from '@/utils/types';
 // composables
 import { useParams, type RouteParams } from '@/composables';
 import { useProjectStore, useTaskStore } from '@/store';
@@ -24,15 +25,17 @@ import { Container, Draggable } from 'vue3-smooth-dnd';
 // variables
 const projectStore = useProjectStore()
 const taskStore = useTaskStore()
-const { projects } = storeToRefs(projectStore)
+const { projects, currentProject } = storeToRefs(projectStore)
 const { showTask, currentTask } = storeToRefs(taskStore)
 const params = useParams<RouteParams<'ProjectTasks'>>()
 const isLoading = ref(true)
 
 
+const cProject = computed(() => projects.value.find((p) => p.id == params.value.id))
+
 const tasks = computed({
-  get: () => (projects.value.find((p) => p.id == params.value.id))?.tasks,
-  set: (val) => (projects.value.find((p) => p.id == params.value.id))!.tasks = val
+  get: () => currentProject.value.tasks,
+  set: (val) => currentProject.value.tasks = val
 })
 
 function onDrop(dropResults: any) {
@@ -50,12 +53,14 @@ function toggleTaskDetail(task: Task) {
 
 
 onMounted(() => {
+  currentProject.value = cProject.value as Project
   setTimeout(() => {
     isLoading.value = false
   }, 1500)
 })
 
 watch(params, () => {
+  currentProject.value = cProject.value as Project
   isLoading.value = true
   setTimeout(() => {
     isLoading.value = false
