@@ -4,7 +4,12 @@ definePage({
   name: "MySummary",
   meta: {
     canFilter: false,
+    isHome: true,
   }
+})
+
+useHead({
+  title: 'Your Summary'
 })
 
 const { height } = useWindowSize()

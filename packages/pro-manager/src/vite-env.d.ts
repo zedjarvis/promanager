@@ -9,4 +9,4 @@ declare module '*.vue' {
 }
 
 declare module 'vue3-smooth-dnd'
-declare module 'pretty-checkbox-vue'
+declare module 'uuid'

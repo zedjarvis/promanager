@@ -1,5 +1,5 @@
 import { createVuetify } from 'vuetify'
-import { VBtn } from 'vuetify/components/VBtn'
+import { VSkeletonLoader } from 'vuetify/labs/VSkeletonLoader'
 // import { icons } from './icons'
 import defaults from './defaults'
 import theme from './themes'
@@ -9,8 +9,8 @@ import '@styles/main.scss'
 import 'vuetify/styles'
 
 export default createVuetify({
-  aliases: {
-    IconBtn: VBtn,
+  components: {
+    VSkeletonLoader,
   },
   // icons,
   defaults,

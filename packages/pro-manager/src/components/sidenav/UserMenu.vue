@@ -36,8 +36,7 @@ async function Logout() {
     active-class="active" class="flex items-center justify-start nav-link" :class="{ 'bg-surface': userMenu }"
     :title="currentUser?.first_name ? currentUser?.first_name : currentUser?.email">
     <template v-slot:prepend>
-      <Avatar size="20" class="text-xs" :class="{ 'ml-n1': rail }" :name="authStore.getCurrentUserFullName"
-        :image="currentUser?.profile?.avatar" />
+      <Avatar size="20" class="text-xs" :class="{ 'ml-n1': rail }" :name="authStore.getCurrentUserFullName" />
     </template>
   </VListItem>
   <VMenu @update:model-value="emit('model-changed', userMenu)" v-model="userMenu" activator="#user-menu-activator"

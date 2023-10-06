@@ -9,10 +9,10 @@ export interface LoginPayload {
 export interface User {
   id: ID
   email: string
-  first_name?: string
-  last_name?: string
-  created_by?: string | null
-  profile?: Profile
+  first_name: string
+  last_name: string
+  avatar: string
+  tasks?: Task[]
 }
 
 export interface Profile {
@@ -36,13 +36,14 @@ export interface UserNotification {
 export interface Project {
   id: ID
   name: string
-  desc: string
-  target_date: Date
-  working_days: string[]
+  desc?: string
+  target_date?: Date
+  working_days?: string[]
   manager?: User
+  tasks?: Task[]
   lead?: Lead
   status: Status
-  priority: Priority
+  priority?: Priority
   default_rate?: string
   budget?: string
 }
@@ -58,8 +59,12 @@ export interface Task {
   id: ID
   done: boolean
   name: string
-  desc: string
-  start_date: Date
-  end_date: Date
-  assigned_to: User[]
+  desc?: string
+  start_date?: Date
+  end_date?: Date
+  users: User[]
+  percentage?: string
+  status?: 'To Do' | 'Doing' | 'Done'
+  priority?: Priority
+  project?: Project
 }

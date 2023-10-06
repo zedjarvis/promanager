@@ -27,7 +27,7 @@ const unread_count = computed(() => notifStore.unread.length)
 
 onMounted(async () => {
   // get notifications for user
-  await notifStore.get()
+  // await notifStore.get()
 })
 </script>
 

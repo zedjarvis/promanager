@@ -62,7 +62,7 @@ const theme: VuetifyOptions['theme'] = {
         'on-warning': '#fff',
         'error': '#FF5252',
         'background': '#101423',
-        'on-background': '#f4f4f4',
+        'on-background': '#9da3ae',
         'nav-background': '#000',
         'on-nav-background': '#9da3ae',
         'surface': '#232734',

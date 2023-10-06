@@ -20,7 +20,7 @@ function handleSubmit() {
 <template>
   <VCard border class="pa-0">
     <div class="flex items-center justify-between w-full pa-4">
-      <VCardTitle class="font-space pa-0">New Lead</VCardTitle>
+      <VCardTitle v-draggable class="font-space pa-0">New Lead</VCardTitle>
       <VIcon @click="emit('close')" icon="i-carbon-close"></VIcon>
     </div>
     <VDivider />

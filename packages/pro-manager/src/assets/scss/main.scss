@@ -1,5 +1,4 @@
 @use 'fonts';
-@import 'pretty-checkbox/src/pretty-checkbox.scss';
 
 *,
 html,
@@ -35,6 +34,12 @@ body {
     background-color: rgb(var(--v-theme-background));
 }
 
+.router-link-active,
+.router-link-exact-active {
+    background-color: rgb(var(--v-theme-surface)) !important;
+}
+
+
 a {
     text-decoration: inherit;
     color: inherit;
@@ -46,4 +51,12 @@ a {
 
 .font-space {
     font-family: 'Space Grotesk';
+}
+
+.vss-movable {
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
 }

@@ -13,10 +13,11 @@ const menu = toRef(props, 'menu')
 </script>
 
 <template>
-  <VNavigationDrawer @update:model-value="emit('toggle-menu')" border :elevation="5" v-model="menu" temporary location="top" class="h-50">
-    <VContainer fluid class="pa-0 ma-0 h-100">
-      <VRow class="pa-0 ma-0 h-100">
-        <VCol cols="8" class="h-100 px-5 px-lg-16 pt-8 overflow-y-auto">
+  <VNavigationDrawer @update:model-value="emit('toggle-menu')" border :elevation="5" v-model="menu" temporary
+    location="top" class="d-flex flex-grow-1! flex-shrink-1! h-max!">
+    <VContainer fluid class="pa-0 ma-0 h-full!">
+      <VRow no-gutters class="pa-0 ma-0 h-full!">
+        <VCol cols="8" class="h-full! px-5 px-lg-16 pt-8 overflow-y-auto">
           <VCard rounded="0" :elevation="0" class="ml-lg-16">
             <h3 class="font-inter pb-4" style="font-size: 16px;">Explore the features that help your team succeed
             </h3>
@@ -44,7 +45,8 @@ const menu = toRef(props, 'menu')
                       </div>
                       <p>Automation</p>
                     </div>
-                    <p class="pl-1 mt-4" style="font-size: 12px;">Automate tasks and workflows with Buttler automation.</p>
+                    <p class="pl-1 mt-4" style="font-size: 12px;">Automate tasks and workflows with Buttler automation.
+                    </p>
                   </VCard>
                 </RouterLink>
               </VCol>
@@ -57,7 +59,8 @@ const menu = toRef(props, 'menu')
                       </div>
                       <p>Power-Ups</p>
                     </div>
-                    <p class="pl-1 mt-4" style="font-size: 12px;">Power up your teams by linking their favourite tools with ProManager plugins.</p>
+                    <p class="pl-1 mt-4" style="font-size: 12px;">Power up your teams by linking their favourite tools
+                      with ProManager plugins.</p>
                   </VCard>
                 </RouterLink>
               </VCol>
@@ -70,7 +73,8 @@ const menu = toRef(props, 'menu')
                       </div>
                       <p>Templates</p>
                     </div>
-                    <p class="pl-1 mt-4" style="font-size: 12px;">Give your team blueprints for success with easy-to-use templates from industry leaders and the PM community.</p>
+                    <p class="pl-1 mt-4" style="font-size: 12px;">Give your team blueprints for success with easy-to-use
+                      templates from industry leaders and the PM community.</p>
                   </VCard>
                 </RouterLink>
               </VCol>
@@ -83,18 +87,20 @@ const menu = toRef(props, 'menu')
                       </div>
                       <p>Intergrations</p>
                     </div>
-                    <p class="pl-1 mt-4" style="font-size: 12px;">Find the apps your team is already using or Discover new ways to get things done.</p>
+                    <p class="pl-1 mt-4" style="font-size: 12px;">Find the apps your team is already using or Discover new
+                      ways to get things done.</p>
                   </VCard>
                 </RouterLink>
               </VCol>
             </VRow>
           </VCard>
         </VCol>
-        <VCol cols="4" class="bg-background h-100 pt-8 pr-5 pr-lg-16 pl-2 pl-lg-6 overflow-y-auto">
-          <VCard rounded="0" :elevation="0" class="bg-background mr-lg-16">
+        <VCol cols="4" class="bg-background pt-8 pr-5 pr-lg-16 pl-2 pl-lg-6 overflow-y-auto">
+          <VCard rounded="0" :elevation="0" class="bg-background mr-lg-16 h-full!">
             <div>
               <h3 class="font-inter pb-4" style="font-size: 16px;">
-                Welcome to <span class="font-space">ProManager<span class="text-primary" style="font-size: 12px;">.com</span></span>
+                Welcome to <span class="font-space">ProManager<span class="text-primary"
+                    style="font-size: 12px;">.com</span></span>
               </h3>
               <VDivider color="secondary" />
             </div>
@@ -107,7 +113,6 @@ const menu = toRef(props, 'menu')
             <VBtn variant="outlined" class="text-capitalize mt-4">Try ProManager</VBtn>
           </VCard>
         </VCol>
-      </VRow>
-    </VContainer>
-  </VNavigationDrawer>
-</template>
+    </VRow>
+  </VContainer>
+</VNavigationDrawer></template>

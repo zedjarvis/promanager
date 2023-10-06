@@ -17,5 +17,6 @@ declare module 'vue' {
     TheFooter: typeof import('./src/components/footer/TheFooter.vue')['default']
     TheHeader: typeof import('./src/components/header/TheHeader.vue')['default']
     TheLogo: typeof import('./src/components/TheLogo.vue')['default']
+    WorkflowCard: typeof import('./src/components/home/WorkflowCard.vue')['default']
   }
 }

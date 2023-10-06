@@ -4,6 +4,7 @@ definePage({
   name: 'HomeCalendar',
   meta: {
     canFilter: false,
+    isHome: true,
   }
 })
 </script>

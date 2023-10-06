@@ -20,7 +20,7 @@ function handleSubmit() {
 <template>
   <VCard border class="pa-5">
     <div class="flex items-center justify-between w-full pa-0 mb-4">
-      <VCardTitle class="font-space pa-0">New Project</VCardTitle>
+      <VCardTitle v-draggable class="font-space pa-0">New Project</VCardTitle>
       <VIcon @click="emit('close')" icon="i-carbon-close"></VIcon>
     </div>
     <VForm v-model="form" @submit.prevent="handleSubmit" validate-on="input">
@@ -31,7 +31,7 @@ function handleSubmit() {
       </VCardItem>
       <VCardItem class="pa-0 mb-4">
         <p class="uppercase mb-1 text-sm">Members</p>
-        <AssignedTo />
+        <AssignedTo :assigned="[]" />
       </VCardItem>
       <VCardItem class="pa-0 mb-4">
         <p class="uppercase mb-1 text-sm">Add to Lead</p>
