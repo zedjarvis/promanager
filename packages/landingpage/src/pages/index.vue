@@ -11,15 +11,57 @@ import puzzleSvg from "@assets/images/Integrations_Puzzle.svg";
 import searchSvg from '@assets/images/Search_Value.svg';
 import heroImg from "@assets/images/hero.png";
 import folderImg from "@assets/images/icon-content-folder_2x.png";
+import logoHorizontal from "@assets/images/logos-horizontal.svg";
+import logoVertical from "@assets/images/logos-vertical.svg";
 
 const { xs } = useDisplay();
 
 const heroForm = ref()
-const aboutCard = ref('boards')
+const aboutCard = useLocalStorage('index-about-card', 'boards')
 
 const card1 = computed(() => aboutCard.value == 'boards')
 const card2 = computed(() => aboutCard.value == 'lists')
 const card3 = computed(() => aboutCard.value == 'cards')
+
+const priceLogo = computed(() => xs.value ? logoVertical : logoHorizontal)
+const workfowItem = reactive([
+  {
+    title: 'Project management',
+    image: folderImg,
+    color: '#FF7452',
+    text: 'Keep tasks in order, deadlines on track, and team members aligned with ProManager.'
+  },
+  {
+    title: 'Meetings',
+    image: folderImg,
+    color: '#2684FF',
+    text: 'Empower your team meetings to be more productive, empowering, and dare we say—fun.'
+  },
+  {
+    title: 'Onboarding',
+    image: folderImg,
+    color: '#57D9A3',
+    text: 'Onboarding to a new Company or project is a snap with ProManager\'s visual layout of todo\'s, resources and progress tracking.'
+  },
+  {
+    title: 'Task management',
+    image: folderImg,
+    color: '#FFC400',
+    text: 'Use ProManager to track, manage, complete and bring tasks together like the pieces of a puzzle and make you team\'s prject a cohesive success everytime.'
+  },
+  {
+    title: 'Brainstorming',
+    image: folderImg,
+    color: '#00C7E5',
+    text: 'Unleash your teams creativity and keep ideas visible, collaborative and actionable.'
+  },
+  {
+    title: 'Resource hub',
+    image: folderImg,
+    color: '#F99CDB',
+    text: 'Save time with a well designed hub that helps teams find information easily and quickly.'
+  },
+])
 
 </script>
 
@@ -28,11 +70,11 @@ const card3 = computed(() => aboutCard.value == 'cards')
   <VSheet tag="section" id="hero" class="hero">
     <VContainer fluid>
       <VRow no-gutters>
-        <VCol cols="12" md="6" class="text-white pl-md-16 pt-4 pt-md-16">
-          <h1 class="hero-text mb-2 mt-4">
+        <VCol cols="12" md="6" class="text-white pl-md-16 pt-4 pt-md-16 text-center text-md-left">
+          <h1 class="font-space font-400 md:font-500 text-4xl lg:leading-[60px] lg:text-5xl mb-2 mt-4">
             Unlock Business Excellence with AI-Powered Project Management Software
           </h1>
-          <h2 class="desc-text mb-10 mt-2">
+          <h2 class="desc-text font-inter mb-10 mt-2">
             Elevate your project planning and resource management with our empowering features, accessible to your
             entire team!
           </h2>
@@ -51,7 +93,7 @@ const card3 = computed(() => aboutCard.value == 'cards')
             </VRow>
           </VForm>
         </VCol>
-        <VCol cols="12" md="6" class="pt-4">
+        <VCol cols="12" md="6" class="pt-12 px-4">
           <VImg :src="heroImg" />
         </VCol>
       </VRow>
@@ -61,15 +103,15 @@ const card3 = computed(() => aboutCard.value == 'cards')
   <!-- ABOUT SECTION  -->
   <VSheet tag="section" id="about" class="font-inter py-16"
     style="background: linear-gradient(0deg, rgb(230, 252, 255), #eff0f5) 0% 0% / auto repeat scroll padding-box border-box rgb(178, 212, 255)">
-    <VContainer>
+    <VContainer class="pb-10">
       <VRow class="mb-4">
         <VCol cols="12" md="7">
-          <p class="mb-2" style="font-size: 16px; font-weight: 500; text-transform: uppercase;">ProManager 101</p>
-          <h2 class="pb-4 mb-2" style="font-size: 36px; font-weight: 500; line-height: 48px; color: #091E42;">A
-            Productivity Powerhouse</h2>
-          <p style="font-size: 20px; font-weight: 400;">Simple, flexible, and powerful. All it takes are boards, lists,
-            and cards to get a clear view of who’s doing what and what needs to get done. Learn more in our guide for
-            getting started.</p>
+          <p class="section-subtitle">ProManager 101</p>
+          <h2 class="section-title">A Productivity Powerhouse</h2>
+          <p class="section-description">
+            Simple, flexible, and powerful. All it takes are boards, lists, and cards to get a clear view of who’s doing
+            what and what needs to get done. Learn more in our guide for getting started.
+          </p>
         </VCol>
         <VCol></VCol>
       </VRow>
@@ -130,36 +172,20 @@ const card3 = computed(() => aboutCard.value == 'cards')
     <VContainer>
       <VRow no-gutters>
         <VCol cols="12" md="8">
-          <p class="mb-2" style="font-size: 16px; font-weight: 500; text-transform: uppercase;">ProManager in action</p>
-          <h2 class="pb-4 mb-2 font-space" style="font-size: 36px; font-weight: 500; line-height: 48px; color: #091E42;">
+          <p class="section-subtitle">ProManager in action</p>
+          <h2 class="section-title">
             Workflows for any project, big or small</h2>
         </VCol>
         <VCol></VCol>
       </VRow>
-      <VSlideGroup class="pa-0 ma-0">
-        <VSlideGroupItem class="">
-          <VCard rounded="lg" :elevation="2" max-width="350" class="ma-1 pt-16 pb-14">
-            <div
-              style="height: 48px; width: 100%; display: inline-block; background-color: #FF7452; position: absolute; top: 0; left: 0; overflow: hidden;">
-            </div>
-            <div
-              style="position: absolute; left: 12px; top: 24px; height: 48px; width: 48px; display: inline-block; background-color: white; border-radius: 4px; padding: 8px;">
-              <VImg :src="folderImg" />
-            </div>
-            <VCardItem class="px-5 pt-5">
-              <h3 class="pb-2" style="font-size: 24px; color: #091E42;">
-                Project Management
-              </h3>
-              <p class="pt-2">
-                Keep tasks in order, deadlines on track, and team members aligned with Trello.
-              </p>
-            </VCardItem>
-          </VCard>
+      <VSlideGroup :show-arrows="false" class="pa-0 ma-0">
+        <VSlideGroupItem v-for="(item, i) in workfowItem" :key="i">
+          <WorkflowCard :title="item.title" :text="item.text" :image="item.image" :color="item.color" />
         </VSlideGroupItem>
       </VSlideGroup>
       <VRow no-gutters class="mt-16">
         <VCol cols="12" md="8">
-          <p class="pb-4 mb-2" style="font-size: 20px; font-weight: 400; line-height: 30px; color: #091E42;">
+          <p class="section-description">
             No need to start from scratch. Jump-start your workflow with a proven playbook designed for different teams.
             Customize it to make it yours.
           </p>
@@ -176,10 +202,10 @@ const card3 = computed(() => aboutCard.value == 'cards')
     style="background: url('/images/ViewsBackground_Left_Narrow.svg') left center / contain no-repeat scroll padding-box border-box, url('/images/ViewsBackground_Right_Narrow.svg') right center / contain no-repeat scroll padding-box border-box, linear-gradient(240deg, rgb(0, 184, 217), rgb(0, 101, 255)) 0% 0% / auto repeat scroll padding-box border-box rgb(0, 101, 255);">
     <VContainer class="text-center">
       <VResponsive width="750" class="mx-auto pb-16">
-        <h2 class="pb-4 text-white font-space" style="font-size: 36px; font-weight: 500; line-height: 48px;">
+        <h2 class="section-title text-white font-space">
           See work in a whole new way
         </h2>
-        <p class="text-white mb-4" style="font-size: 20px; font-weight: 400;">View your team’s projects from every angle
+        <p class="text-white section-description">View your team’s projects from every angle
           and bring a fresh
           perspective to the task at hand.
         </p>
@@ -190,10 +216,20 @@ const card3 = computed(() => aboutCard.value == 'cards')
           <VCol cols="12" md="7"></VCol>
           <VCol cols="12" md="5">
             <div class="d-flex align-center mb-8">
-              <h3 class="text-uppercase" style="font-size: 16px; font-weight: 500; line-height: 20px;">Hit deadlines every
-                time</h3>
+              <h3 class="section-subtitle flex items-center">
+                <span class="h-32px w-32px" style="color: rgb(135, 119, 217);">
+                  <svg fill="currentColor" aria-hidden="true" viewBox="0 0 32 32">
+                    <path
+                      d="M6 5.333h9.333a3.333 3.333 0 0 1 0 6.667H6a3.333 3.333 0 0 1 0-6.667Zm9.333 4a.667.667 0 0 0 0-1.333H6a.667.667 0 0 0 0 1.333h9.333Zm-6.666 4H18A3.333 3.333 0 1 1 18 20H8.667a3.333 3.333 0 0 1 0-6.667Zm9.333 4A.667.667 0 0 0 18 16H8.667a.667.667 0 0 0 0 1.333H18Zm6.667 4h-9.334a3.333 3.333 0 1 0 0 6.667h9.334a3.333 3.333 0 0 0 0-6.667Zm-9.334 4a.667.667 0 0 1 0-1.333h9.334a.667.667 0 1 1 0 1.333h-9.334Zm8-20H26A3.333 3.333 0 1 1 26 12h-2.667a3.333 3.333 0 1 1 0-6.667Zm2.667 4A.667.667 0 1 0 26 8h-2.667a.667.667 0 1 0 0 1.333H26Z">
+                    </path>
+                  </svg>
+                </span>
+                <span class="mx-3">
+                  Hit deadlines every time
+                </span>
+              </h3>
             </div>
-            <p class="text-left mb-6" style="font-size: 20px; line-height: 30px;">From weekly sprints to annual planning,
+            <p class="text-left mb-6 section-description">From weekly sprints to annual planning,
               Timeline view keeps all tasks on track. Quickly get a glimpse of what’s coming down the pipeline and
               identify any gaps that might impede your team’s progress.</p>
             <p class="text-left text-primary">
@@ -205,17 +241,27 @@ const card3 = computed(() => aboutCard.value == 'cards')
       <VCard :elevation="5" class="pa-8 mt-16 mb-n16">
         <VRow no-gutters>
           <VCol cols="12" md="5">
-            <div class="d-flex align-center mb-8">
-              <h3 class="text-uppercase" style="font-size: 16px; font-weight: 500; line-height: 20px;">Stay on top of
-                Tasks</h3>
+            <div class="d-flex align-center mb-6">
+              <h3 class="section-subtitle flex items-center">
+                <span class="h-32px w-32px" style="color: rgb(0, 199, 229)">
+                  <svg fill="currentColor" aria-hidden="true" viewBox="0 0 32 32">
+                    <path
+                      d="M6.66 6.667h18.68A2.66 2.66 0 0 1 28 9.325v16.016A2.659 2.659 0 0 1 25.34 28H6.66A2.66 2.66 0 0 1 4 25.341V9.325a2.659 2.659 0 0 1 2.66-2.658ZM6.667 12v12A1.333 1.333 0 0 0 8 25.333h16A1.333 1.333 0 0 0 25.333 24V12H6.667ZM8 5.333a1.333 1.333 0 0 1 2.667 0v1.334H8V5.333Zm13.333 0a1.333 1.333 0 0 1 2.667 0v1.334h-2.667V5.333Zm-12 12v-2.668H12v2.668H9.333Zm10.667 0v-2.668h2.667v2.668H20Zm-5.333 0v-2.668h2.668v2.668h-2.668Zm-5.334 5.334V20H12v2.667H9.333Zm5.334 0V20h2.668v2.667h-2.668Zm5.333 0V20h2.667v2.667H20Z">
+                    </path>
+                  </svg>
+                </span>
+                <span class="mx-3">
+                  Stay on top of Tasks
+                </span>
+              </h3>
             </div>
-            <p class="text-left mb-6" style="font-size: 20px; line-height: 30px;">Start each day without any surprises.
+            <p class="text-left mb-6 section-description">Start each day without any surprises.
               Whether scheduling an editorial calendar or staying on top of to-dos, Calendar view is like a crystal ball
               giving you a clear vision of what work lies ahead.
 
             </p>
             <p class="text-left text-primary">
-              <a class="text-decoration-underline" href="/" style="font-size: 20px;">Learn more about Calendar view</a>
+              <a class="underline" href="/" style="font-size: 20px;">Learn more about Calendar view</a>
             </p>
           </VCol>
           <VCol cols="12" md="7"></VCol>
@@ -229,11 +275,11 @@ const card3 = computed(() => aboutCard.value == 'cards')
     <VContainer class="pt-16">
       <VRow no-gutters>
         <VCol cols="12" md="8">
-          <p class="mb-2" style="font-size: 16px; font-weight: 500; text-transform: uppercase;">Powerful ways to grow</p>
-          <h2 class="pb-4 mb-2 font-space" style="font-size: 36px; font-weight: 500; line-height: 48px; color: #091E42;">
+          <p class="section-subtitle">Powerful ways to grow</p>
+          <h2 class="section-title">
             Do more with ProManager
           </h2>
-          <p class="mb-4" style="font-size: 20px; font-weight: 400;">
+          <p class="section-description">
             ProManager's intuitive features give any team the ability to quickly set up and customize workflows for just
             about
             anything.
@@ -294,15 +340,121 @@ const card3 = computed(() => aboutCard.value == 'cards')
   </VSheet>
 
   <!-- PRICING SECTION  -->
-  <VSheet tag="section" id="pricing" class="font-inter py-16">
-    <VContainer>
-      <VCard title="Pricing"></VCard>
-    </VContainer>
-  </VSheet>
+  <VSheet tag="section" id="pricing" class="font-inter py-16 d-flex justify-center align-center"
+    style="background: linear-gradient(rgb(230, 252, 255), rgb(255, 255, 255)) 0% 0% / auto no-repeat scroll padding-box border-box transparent;">
+    <VContainer class="pb-16">
+      <VResponsive width="750" class="mx-auto pb-16 text-center">
+        <h2 class="section-title font-space">
+          ProManager priced your way
+        </h2>
+        <p class="section-description">
+          Trusted by millions, ProManager powers teams all around the world.
+        </p>
+        <VBtn height="50" variant="flat" color="primary" border>Compare plans</VBtn>
+      </VResponsive>
+      <div class="h-max w-full pb-20">
+        <div class="w-full h-max md:h-515px grid-cols-1 grid md:grid-cols-4">
 
-  <!-- INTEGRATION SECTION -->
-  <VSheet class="ma-0 pa-0">
-    <IntegrationSection />
+          <div class="price-card border flex flex-col col-span-1 h-full bg-white text-[#091E42]">
+            <div class="pt-6 px-4 w-full">
+              <h3>FREE</h3>
+            </div>
+            <div class="pt-6 px-4 w-full">
+              <p class="text-48px leading-48px">
+                <span class="text-16px">$</span>0<span class="text-16px">USD</span>
+              </p>
+              <p class="text-xs text-[#505F79]">Free for your whole team</p>
+            </div>
+            <div class="pt-6 px-4 w-full flex-grow">
+              <p>For individuals or teams looking to organize any project</p>
+            </div>
+            <div class="pt-6 px-4 w-full">
+              <VBtn height="50" color="primary" variant="outlined">Get Started</VBtn>
+            </div>
+            <div class="px-4 pt-4 pb-8">
+              <p class="inline-block h-30px w-full"></p>
+            </div>
+          </div>
+
+          <div class="border flex flex-col col-span-1 h-full bg-white text-[#091E42]">
+            <div class="pt-6 px-4 w-full">
+              <h3>STANDARD</h3>
+            </div>
+            <div class="pt-6 px-4 w-full">
+              <p class="text-48px leading-48px">
+                <span class="text-16px">$</span>5<span class="text-16px">USD</span>
+              </p>
+              <p class="text-xs text-[#505F79]">Per user/month if billed annually ($6 billed monthly)</p>
+            </div>
+            <div class="pt-6 px-4 w-full flex-grow">
+              <p>For small teams that need to manage work and scale collaboration.</p>
+            </div>
+            <div class="pt-6 px-4 w-full">
+              <VBtn height="50" color="primary" variant="outlined">Sign up now</VBtn>
+            </div>
+            <div class="px-4 pt-4 pb-8">
+              <p class="inline-block h-30px w-full">
+                <a href="#" class="underline text-primary">Learn more about standard</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="border-2 flex flex-col col-span-1 h-full bg-white text-[#091E42] border-[#35bada]">
+            <div class="pt-6 px-4 w-full">
+              <h3>PREMIUM</h3>
+            </div>
+            <div class="pt-6 px-4 w-full">
+              <p class="text-48px leading-48px">
+                <span class="text-16px">$</span>10<span class="text-16px">USD</span>
+              </p>
+              <p class="text-xs text-[#505F79]">Per user/month if billed annually ($12.50 billed monthly)</p>
+            </div>
+            <div class="pt-6 px-4 w-full flex-grow">
+              <p>For teams that need to track and visualize multiple projects in several ways, including boards,
+                timelines, calendars, etc.</p>
+            </div>
+            <div class="pt-6 px-4 w-full">
+              <VBtn height="50" color="primary" variant="outlined">Try for free</VBtn>
+            </div>
+            <div class="px-4 pt-4 pb-8">
+              <p class="inline-block h-30px w-full">
+                <a href="#" class="underline text-primary">Learn more about premium</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="border flex flex-col col-span-1 h-full bg-white text-[#091E42]">
+            <div class="pt-6 px-4 w-full">
+              <h3>ENTERPRICE</h3>
+            </div>
+            <div class="pt-6 px-4 w-full">
+              <p class="text-48px leading-48px">
+                <span class="text-16px">$</span>17.50<span class="text-16px">USD</span>
+              </p>
+              <p class="text-xs text-[#505F79]">Per user/month - billed annually ($210.00 annual price per user)</p>
+            </div>
+            <div class="pt-6 px-4 w-full flex-grow">
+              <p>For organizations that need to connect work across teams with more security and controls.</p>
+              <p>Est. cost for span</p>
+            </div>
+            <div class="pt-6 px-4 w-full">
+              <VBtn height="50" color="primary" variant="outlined">Contact sales</VBtn>
+            </div>
+            <div class="px-4 pt-4 pb-8">
+              <p class="inline-block h-30px w-full">
+                <a href="#" class="underline text-primary">Learn more about eterprice</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full text-center">
+        <p class="section-description mb-6">
+          Join over 2,000,000 teams worldwide that are using Trello to get more done.
+        </p>
+        <img class="mx-auto" :src="priceLogo" width="960" height="80" />
+      </div>
+    </VContainer>
   </VSheet>
 
 
@@ -327,24 +479,5 @@ const card3 = computed(() => aboutCard.value == 'cards')
 <style lang="scss">
 .hero {
   background: url("/images/hero-bg.png") center bottom -0.5px / 100% 14% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto repeat scroll padding-box border-box rgb(82, 67, 170) !important;
-}
-
-.hero-text {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 48px;
-  line-height: 60px;
-  font-weight: 500;
-}
-
-.desc-text {
-  font-size: 18px;
-  line-height: 30px;
-  font-weight: 400;
-}
-
-.section-title {
-  font-size: 36px !important;
-  line-height: 48px;
-  font-weight: 500;
 }
 </style>

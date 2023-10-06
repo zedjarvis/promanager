@@ -20,7 +20,7 @@ const bottomListRef = ref<HTMLElement | null>()
 const userStore = useUsersStore()
 const projectStore = useProjectStore()
 const taskStore = useTaskStore()
-const { projects } = storeToRefs(projectStore)
+const { projects, currentProject } = storeToRefs(projectStore)
 const { showTask, currentTask } = storeToRefs(taskStore)
 const routeMeta = useRouteMeta()
 const windowSize = useWindowSize()
@@ -101,8 +101,12 @@ onMounted(async () => {
 
     <!-- 👉 TOP NAVIGATION LINKS  -->
     <div class="grid md:grid-cols-3 items-center w-full">
-      <div class="col-span-1 hidden md:flex"></div>
-      <div class="col-span-1 hidden md:flex items-center justify-center">
+      <div class="col-span-1 hidden md:flex">
+        <ProjectMenu v-if="routeMeta.isPortfolio" :project="currentProject" />
+      </div>
+
+      <!-- 👉 HOME NAVIGATION LINKS  -->
+      <div v-if="routeMeta.isHome" class="col-span-1 hidden md:flex items-center justify-center">
         <TopLink v-tippy="{ content: 'MY SUMMARY', theme: 'light' }" icon="i-carbon-user-activity" url="/home/my-summary"
           @click="home_path = '/home/my-summary'" />
         <TopLink v-tippy="{ content: 'PORTFOLIO SUMMARY', theme: 'light' }" icon="i-carbon-business-processes"
@@ -117,6 +121,24 @@ onMounted(async () => {
         <TopLink v-tippy="{ content: 'FILES', theme: 'light' }" icon="i-carbon-document-blank" url="/home/task/files"
           @click="home_path = '/home/task/files'" />
         <TopLink v-tippy="{ content: 'SETTINGS', theme: 'light' }" icon="i-carbon-add" url="" @click="() => { }" />
+      </div>
+
+      <!-- 👉 PORTFOLIO NAVIGATION LINKS  -->
+      <div v-else-if="routeMeta.isPortfolio" class="col-span-1 hidden md:flex items-center justify-center">
+        <TopLink v-tippy="{ content: 'LIST', theme: 'light' }" icon="i-carbon-list"
+          :url="`/portfolio/list/${currentProject?.id}`" />
+        <TopLink class="rotate-90" v-tippy="{ content: 'BOARD', theme: 'light' }" icon="i-carbon-roadmap"
+          :url="`/portfolio/kanban-board/${currentProject?.id}`" />
+        <TopLink v-tippy="{ content: 'DASHBOARD', theme: 'light' }" icon="i-carbon-activity"
+          :url="`/portfolio/dashboard/${currentProject?.id}`" />
+        <TopLink v-tippy="{ content: 'CALENDAR', theme: 'light' }" icon="i-carbon-calendar"
+          :url="`/portfolio/calendar/${currentProject?.id}`" />
+        <TopLink v-tippy="{ content: 'FILES', theme: 'light' }" icon="i-carbon-document-blank"
+          :url="`/portfolio/files/${currentProject?.id}`" />
+        <TopLink v-tippy="{ content: 'SETTINGS', theme: 'light' }" icon="i-carbon-add" url="" @click="() => { }" />
+      </div>
+      <div v-else>
+        <!-- empty placeholder -->
       </div>
       <div class="col-span-1 flex shrink items-center justify-end">
         <VBtn size="small" rounded="0" color="primary" variant="flat" class="d-none d-md-flex mr-2 text-capitalize">
@@ -163,7 +185,7 @@ onMounted(async () => {
           <div class="h-12 pl-12 flex relative">
             <span vertical class="absolute left-0 top-0 inline-block h-0.5 w-48px border-b -rotate-90"></span>
             <span class="absolute left-6 top-24px inline-block w-5 h-0.5 border-b"></span>
-            <RouterLink :to="`/portfolio/${project.id}`"
+            <RouterLink :to="`/portfolio/list/${project.id}`"
               class="inline-block w-full pl-2 py-3 truncate hover:bg-[rgb(var(--v-theme-surface))]">
               {{ project.name }}
             </RouterLink>

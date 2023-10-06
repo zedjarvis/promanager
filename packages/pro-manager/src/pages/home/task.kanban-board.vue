@@ -1,4 +1,18 @@
 <script setup lang="ts">
+// page opgions # unplugin vue router
+definePage({
+  name: 'HomeBoard',
+  meta: {
+    canFilter: false,
+    isHome: true,
+  }
+})
+
+useHead({
+  title: 'Board',
+})
+
+
 import { Container, Draggable } from 'vue3-smooth-dnd';
 // import { applyDrag, generateItems.value, generateWords } from '../utils/helpers'
 // import KanbanItem from '../components/KanbanItem.vue';

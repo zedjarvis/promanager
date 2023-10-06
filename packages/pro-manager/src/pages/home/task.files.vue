@@ -4,6 +4,7 @@ definePage({
   name: 'HomeFiles',
   meta: {
     canFilter: false,
+    isHome: true,
   }
 })
 

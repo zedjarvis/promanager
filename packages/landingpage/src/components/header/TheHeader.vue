@@ -39,25 +39,25 @@ function toggleMenu() {
     <VTabs v-click-outside="{ handler: onClickOutside, include }" v-model="tab" color="primary"
       class="font-inter d-none d-md-flex" :mandatory="false">
       <VTab @click="onTabClick('features')" class="nav-tab px-3" :ripple="false" value="features">Features
-        <VIcon icon="mdi-chevron-down" />
+        <VIcon size="small" icon="mdi-chevron-down" />
       </VTab>
       <VTab @click="onTabClick('solutions')" class="nav-tab px-3" :ripple="false" value="solutions">Solutions
-        <VIcon icon="mdi-chevron-down" />
+        <VIcon size="small" icon="mdi-chevron-down" />
       </VTab>
       <VTab @click="onTabClick('plans')" class="nav-tab px-3" :ripple="false" value="plans">Plans
-        <VIcon icon="mdi-chevron-down" />
+        <VIcon size="small" icon="mdi-chevron-down" />
       </VTab>
-      <VTab @click="menu = false" href="#pricing" exact hide-slider class="nav-tab px-3" :ripple="false"
-        value="pricing">
+      <VTab @click="menu = false" href="#pricing" exact hide-slider class="nav-tab px-3" :ripple="false" value="pricing">
         Pricing</VTab>
       <VTab @click="onTabClick('resources')" class="nav-tab px-3" :ripple="false" value="resources">Resources
-        <VIcon icon="mdi-chevron-down" />
+        <VIcon size="small" icon="mdi-chevron-down" />
       </VTab>
     </VTabs>
     <VSpacer></VSpacer>
     <VToolbarItems class="font-inter d-none d-md-flex">
-      <VBtn class="">Login</VBtn>
-      <VBtn :ripple="false" color="primary" variant="flat" class="px-md-6 rounded-0">Start Free Trial <VIcon>
+      <VBtn class="rounded-0 text-[19.2px]! font-400!">Login</VBtn>
+      <VBtn :ripple="false" color="primary" variant="flat" class="px-md-6 rounded-0 text-[19.2px]! font-400!">Start Free
+        Trial <VIcon>
           mdi-arrow-right
         </VIcon>
       </VBtn>
@@ -75,9 +75,12 @@ function toggleMenu() {
 <style lang="scss">
 .v-btn {
   text-transform: capitalize !important;
-  font-size: 14px !important;
-  appearance: none;
-  user-select: none;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 24px;
+  color: rgb(23, 43, 77);
+  font-family: Inter;
 
   &:hover {
     color: rgb(var(--v-theme-primary));

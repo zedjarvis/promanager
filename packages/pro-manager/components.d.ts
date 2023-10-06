@@ -22,6 +22,7 @@ declare module 'vue' {
     NavLinkBtn: typeof import('./src/components/sidenav/NavLinkBtn.vue')['default']
     NavLinkItem: typeof import('./src/components/sidenav/NavLinkItem.vue')['default']
     NotificationMenu: typeof import('./src/components/sidenav/NotificationMenu.vue')['default']
+    ProjectMenu: typeof import('./src/components/@core/ProjectMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheLogo: typeof import('./src/components/TheLogo.vue')['default']

@@ -5,17 +5,19 @@
  */
 
 // Components
-import App from './App.vue'
+import App from './App.vue';
 
 // Composables
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 
 // Plugins
-import { registerPlugins } from '@/plugins'
-import "@styles/main.scss"
+import { registerPlugins } from '@/plugins';
+import "@styles/main.scss";
+import '@unocss/reset/tailwind-compat.css';
+import 'uno.css';
+
 
 const app = createApp(App)
-
 registerPlugins(app)
 
 app.mount('#app')

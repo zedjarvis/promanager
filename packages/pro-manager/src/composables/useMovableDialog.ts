@@ -8,7 +8,6 @@ export function useMovableDialogs() {
     return targ.classList?.contains("vss-movable")
   }
   document.addEventListener("mousedown", (e: any) => {
-    e.preventDefault()
     const closestDialog = e.target.closest(".v-overlay__content")
     const title = closestDialog?.querySelector(".v-card-title")
     if (e.button === 0 && closestDialog != null && (isMovable(e.target)) || isMovable(e.target.parentNode)) {

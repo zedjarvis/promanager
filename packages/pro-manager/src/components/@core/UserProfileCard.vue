@@ -2,8 +2,8 @@
 import type { User } from '@/utils/types';
 
 const props = defineProps<{
-  user: User | null
-  name?: string
+  user: User
+  name: string
 }>()
 
 const user = toRef(props, 'user')
@@ -16,7 +16,7 @@ const user = toRef(props, 'user')
         <div class="md:col-span-2 pl-4 py-4 ">
           <VHover v-slot="{ isHovering, props }">
             <VCard rounded="pill" v-bind="props" height="100" width="100">
-              <Avatar size="100" :name="name" :image="user?.profile?.avatar" />
+              <Avatar size="100" :name="name" />
               <VOverlay :model-value="isHovering" contained scrim="#036358" class="align-center justify-center">
                 <VBtn size="small" variant="flat" class="text-capitalize">Edit</VBtn>
               </VOverlay>
