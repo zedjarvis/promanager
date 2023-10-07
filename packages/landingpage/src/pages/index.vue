@@ -9,6 +9,8 @@ import listImg from "@assets/images/Carousel_Image_Lists_2x.png";
 import cogSvg from '@assets/images/Gears.svg';
 import puzzleSvg from "@assets/images/Integrations_Puzzle.svg";
 import searchSvg from '@assets/images/Search_Value.svg';
+import cImg from "@assets/images/TrelloBoard_Calendar_2x_004.png";
+import tImg from "@assets/images/TrelloBoard_Timeline_2x_004.png";
 import heroImg from "@assets/images/hero.png";
 import folderImg from "@assets/images/icon-content-folder_2x.png";
 import logoHorizontal from "@assets/images/logos-horizontal.svg";
@@ -17,7 +19,10 @@ import logoVertical from "@assets/images/logos-vertical.svg";
 const { xs } = useDisplay();
 
 const heroForm = ref()
+const enterpriceUsers = ref(50)
 const aboutCard = useLocalStorage('index-about-card', 'boards')
+const { y } = useWindowScroll()
+const scrollPos = useLocalStorage('index-scroll-pos', y.value)
 
 const card1 = computed(() => aboutCard.value == 'boards')
 const card2 = computed(() => aboutCard.value == 'lists')
@@ -63,6 +68,16 @@ const workfowItem = reactive([
   },
 ])
 
+
+onMounted(() => {
+  window.scroll({
+    top: scrollPos.value,
+    behavior: 'smooth',
+  })
+  useEventListener('scroll', () => {
+    scrollPos.value = y.value
+  })
+})
 </script>
 
 <template>
@@ -137,7 +152,7 @@ const workfowItem = reactive([
             <VCardTitle class="mb-2" style="font-size: 16px;">Lists</VCardTitle>
             <VCardText style="font-size: 16px;">The different stages of a task. Start as simple as To Do, Doing or Done—or
               build a
-              workflow custom fit to your team’s needs. There’s no wrong way to Trello.</VCardText>
+              workflow custom fit to your team’s needs. There’s no wrong way to ProManger.</VCardText>
           </VCard>
           <VCard @click="aboutCard = 'cards'" :elevation="card3 ? 4 : 0" class="my-3 pl-2 position-relative"
             :class="card3 ? 'bg-surface' : 'bg-transparent'">
@@ -213,7 +228,9 @@ const workfowItem = reactive([
       </VResponsive>
       <VCard class="pa-8">
         <VRow no-gutters>
-          <VCol cols="12" md="7"></VCol>
+          <VCol cols="12" md="7">
+            <VImg :src="tImg" height="300" />
+          </VCol>
           <VCol cols="12" md="5">
             <div class="d-flex align-center mb-8">
               <h3 class="section-subtitle flex items-center">
@@ -264,7 +281,9 @@ const workfowItem = reactive([
               <a class="underline" href="/" style="font-size: 20px;">Learn more about Calendar view</a>
             </p>
           </VCol>
-          <VCol cols="12" md="7"></VCol>
+          <VCol cols="12" md="7">
+            <VImg :src="cImg"  height="300"/>
+          </VCol>
         </VRow>
       </VCard>
     </VContainer>
@@ -289,49 +308,43 @@ const workfowItem = reactive([
       </VRow>
       <VRow>
         <VCol cols="12" md="4">
-          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background">
-            <div>
-              <VImg :src="puzzleSvg" height="100" width="100" />
-              <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
-                Integrations
-              </h3>
-              <p style="font-size: 16px; line-height: 24px;">
-                Connect the apps your team already uses into your Trello
-                workflow or add a Power-Up to fine-tune your specific needs.
-              </p>
-            </div>
+          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background d-flex flex-column">
+            <VImg :src="puzzleSvg" height="100" width="100" />
+            <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
+              Integrations
+            </h3>
+            <p class="flex-grow" style="font-size: 16px; line-height: 24px;">
+              Connect the apps your team already uses into your ProManger
+              workflow or add a Power-Up to fine-tune your specific needs.
+            </p>
             <VBtn height="50" variant="outlined" class="mt-6 text-uppercase">Browse
               Integrations</VBtn>
           </VCard>
         </VCol>
         <VCol cols="12" md="4">
-          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background">
-            <div>
-              <VImg :src="cogSvg" height="100" width="100" />
-              <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
-                PM
-                Automation
-              </h3>
-              <p style="font-size: 16px; line-height: 24px;">
-                No-code automation is built into every Trello board. Focus on
-                the work that matters most and let the robots do the rest.
-              </p>
-            </div>
+          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background d-flex flex-column">
+            <VImg :src="cogSvg" height="100" width="100" />
+            <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
+              PM
+              Automation
+            </h3>
+            <p class="flex-grow" style="font-size: 16px; line-height: 24px;">
+              No-code automation is built into every ProManger board. Focus on
+              the work that matters most and let the robots do the rest.
+            </p>
             <VBtn height="50" variant="outlined" class="mt-6 text-uppercase">Get to know
               automation</VBtn>
           </VCard>
         </VCol>
         <VCol cols="12" md="4">
-          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background">
-            <div>
-              <VImg :src="searchSvg" height="100" width="100" />
-              <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
-                PM Enterprice
-              </h3>
-              <p style="font-size: 16px; line-height: 24px;">
-                The productivity tool teams love, paired with the features and security needed for scale.
-              </p>
-            </div>
+          <VCard :elevation="0" class="pa-6 w-100 h-100 bg-background d-flex flex-column">
+            <VImg :src="searchSvg" height="100" width="100" />
+            <h3 class="font-inter mt-4 mb-2" style="font-size: 24px; font-weight: 500; line-height: 32px;">
+              PM Enterprice
+            </h3>
+            <p class="flex-grow" style="font-size: 16px; line-height: 24px;">
+              The productivity tool teams love, paired with the features and security needed for scale.
+            </p>
             <VBtn height="50" variant="outlined" class="mt-6 text-uppercase">Explore Enterprice</VBtn>
           </VCard>
         </VCol>
@@ -353,7 +366,7 @@ const workfowItem = reactive([
         <VBtn height="50" variant="flat" color="primary" border>Compare plans</VBtn>
       </VResponsive>
       <div class="h-max w-full pb-20">
-        <div class="w-full h-max md:h-515px grid-cols-1 grid md:grid-cols-4">
+        <div class="w-full h-max md:min-h-515px grid-cols-1 grid md:grid-cols-4">
 
           <div class="price-card border flex flex-col col-span-1 h-full bg-white text-[#091E42]">
             <div class="pt-6 px-4 w-full">
@@ -435,14 +448,23 @@ const workfowItem = reactive([
             </div>
             <div class="pt-6 px-4 w-full flex-grow">
               <p>For organizations that need to connect work across teams with more security and controls.</p>
-              <p>Est. cost for span</p>
+              <p>Est. cost for <span class="inline-block w-18 border-b-2px border-[#091E42]"><input type="number"
+                    v-model="enterpriceUsers" min="50" max="5000"
+                    class="border-none w-full outline-none text-24px text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"></span>
+                users</p>
+              <VSlider v-model="enterpriceUsers" :min="50" :max="5000" :step="1" class="mt-4"></VSlider>
+              <VExpandTransition>
+                <p v-show="enterpriceUsers >= 5000"><span>
+                    <VIcon color="primary" size="x-small" icon="i-carbon-information" class="mb-1" />
+                  </span> For organizations with more than 5,000 users please contact sales for pricing.</p>
+              </VExpandTransition>
             </div>
             <div class="pt-6 px-4 w-full">
               <VBtn height="50" color="primary" variant="outlined">Contact sales</VBtn>
             </div>
             <div class="px-4 pt-4 pb-8">
               <p class="inline-block h-30px w-full">
-                <a href="#" class="underline text-primary">Learn more about eterprice</a>
+                <a href="#" class="underline text-primary">Learn more about enterprice</a>
               </p>
             </div>
           </div>
@@ -450,7 +472,7 @@ const workfowItem = reactive([
       </div>
       <div class="w-full text-center">
         <p class="section-description mb-6">
-          Join over 2,000,000 teams worldwide that are using Trello to get more done.
+          Join over 2,000,000 teams worldwide that are using ProManger to get more done.
         </p>
         <img class="mx-auto" :src="priceLogo" width="960" height="80" />
       </div>
@@ -459,15 +481,15 @@ const workfowItem = reactive([
 
 
   <!-- CTA SECTION -->
-  <VSheet tag="section" id="cta" class="d-flex justify-center align-center text-center py-16"
+  <VSheet tag="section" id="cta" class="d-flex justify-center align-center text-center py-16 bg-secondary"
     style="background: url('/images/BigSwingFooterHeroGraphic__Left.svg') left center / contain no-repeat scroll padding-box border-box, url('/images/BigSwingFooterHeroGraphic__Right.svg') right center / contain no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(82, 67, 170), rgb(237, 80, 180)) 0% 0% / auto repeat scroll padding-box border-box rgb(82, 67, 170);">
     <VContainer class="text-centers">
       <VResponsive width="500" class="mx-auto">
-        <h2 class="font-space section-title mb-8">Get Started with PM today</h2>
+        <h2 class="font-space section-title mb-8 text-white">Get Started with PM today</h2>
         <VForm ref="heroForm" class="d-flex flex-column flex-md-row font-inter">
           <VTextField id="email" type="email" name="email" variant="outlined" bg-color="white" base-color="white"
-            color="white" class="w-100" placeholder="Email" density="comfortable" required></VTextField>
-          <VBtn class="ml-4" type="submit" :block="xs" height="50" color="primary" :ripple="false">Start Free
+            color="white" class="d-none d-md-block" placeholder="Email" density="comfortable" required></VTextField>
+          <VBtn class="ml-md-4" type="submit" :block="xs" height="50" color="primary" :ripple="false">Start Free
             Trial
           </VBtn>
         </VForm>

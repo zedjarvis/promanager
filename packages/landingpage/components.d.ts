@@ -12,10 +12,12 @@ declare module 'vue' {
     IntegrationCard: typeof import('./src/components/home/IntegrationCard.vue')['default']
     IntegrationSection: typeof import('./src/components/home/IntegrationSection.vue')['default']
     MobileNav: typeof import('./src/components/header/MobileNav.vue')['default']
+    NavContentCard: typeof import('./src/components/header/NavContentCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheFooter: typeof import('./src/components/footer/TheFooter.vue')['default']
     TheHeader: typeof import('./src/components/header/TheHeader.vue')['default']
+    TheHumburger: typeof import('./src/components/TheHumburger.vue')['default']
     TheLogo: typeof import('./src/components/TheLogo.vue')['default']
     WorkflowCard: typeof import('./src/components/home/WorkflowCard.vue')['default']
   }

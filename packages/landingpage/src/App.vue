@@ -13,10 +13,9 @@ onMounted(() => {
 
     <!-- DISCLAIMER DIALOG  -->
     <VDialog v-model="dialog" width="500" persistent>
-      <VCard border>
-        <VCardTitle>Disclaimer!!</VCardTitle>
+      <VCard border rounded="0" :elevation="24" class="text-center">
         <VCardText>
-          This project is Demo purposes only and does not mean to copy or infringe Trello in any way.
+          This is a Demo project
         </VCardText>
         <VCardActions class="justify-center">
           <VBtn @click="dialog = false">Close</VBtn>

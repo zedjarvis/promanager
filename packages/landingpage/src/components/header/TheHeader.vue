@@ -7,11 +7,11 @@ import { useDisplay } from 'vuetify';
 
 const { smAndDown } = useDisplay()
 
-const menu = ref<boolean | null>(null)
+const menu = ref(false)
 const tab = ref<string | null>(null)
 
 function include() {
-  return [document.querySelector('.mobile-btn'), document.querySelector('.nav-dropdown')]
+  return [document.querySelector('.mobile-btn'), document.querySelector('.nav-dropdown'), document.querySelector('.mobile-dropdown')]
 }
 
 function onClickOutside() {
@@ -31,7 +31,7 @@ function toggleMenu() {
 </script>
 
 <template>
-  <VAppBar scroll-behavior="elevate" height="60" class="pl-5 pl-md-10">
+  <VAppBar scroll-behavior="elevate" height="60" class="pl-5 pl-md-10 align-center">
     <ContentBtn />
     <div class="mr-md-4">
       <TheLogo :sm-and-down="smAndDown" />
@@ -62,12 +62,11 @@ function toggleMenu() {
         </VIcon>
       </VBtn>
     </VToolbarItems>
-    <VBtn :ripple="false" variant="plain" :icon="menu ? 'mdi-close' : 'mdi-menu'"
-      class="mobile-btn d-sm-flex d-md-none ma-0" @click="toggleMenu"></VBtn>
+    <TheHumburger class="mobile-btn" :menu="menu" @toggle-menu="toggleMenu" />
   </VAppBar>
 
   <!-- MOBILE MENU  -->
-  <MobileNav v-if="smAndDown" :menu="menu" @toggle-menu="toggleMenu" />
+  <MobileNav v-if="smAndDown" :menu="menu" :tab="tab" @toggle-menu="toggleMenu" class="mobile-dropdown" />
   <!-- DESKTOP NAV  -->
   <DesktopNav v-else :menu="menu" :tab="tab" @toggle-menu="toggleMenu" class="nav-dropdown" />
 </template>
