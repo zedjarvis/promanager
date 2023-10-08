@@ -5,8 +5,8 @@
   <VFooter class="pa-0 bg-secondary text-white">
     <VContainer class="pt-md-8 px-6">
       <VRow class="mb-2">
-        <VCol cols="12" md="" class="my-3 my-md-0">
-          <TheLogo />
+        <VCol cols="12" md="" class="my-3 my-md-0 d-flex flex-md-column justify-between">
+          <TheLogo variant="footer" />
           <p class="mt-4 hover:underline w-fit">Log in</p>
         </VCol>
         <VDivider thickness="2" class="d-flex d-md-none" />

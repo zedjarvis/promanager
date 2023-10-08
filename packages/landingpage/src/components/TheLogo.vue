@@ -1,11 +1,17 @@
 <script setup lang="ts">
+
+const props = withDefaults(defineProps<{ variant?: 'footer' | 'header' }>(), {
+  variant: 'header'
+})
+
+const variant = toRef(props, 'variant')
 </script>
 
 <template>
   <RouterLink to="/">
     <div class="d-flex align-center">
       <span class="logo-icon">PM</span>
-      <span class="logo-text ml-1 d-none d-md-flex">ProManager
+      <span class="logo-text ml-1" :class="{ 'd-none d-md-flex': variant == 'header' }">ProManager
         <span style="font-size: 13px;">
           <span class="text-primary">.</span>com
         </span>
