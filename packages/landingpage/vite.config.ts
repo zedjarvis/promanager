@@ -27,6 +27,7 @@ export default defineConfig({
       imports: [
         'vue',
         '@vueuse/core',
+        'pinia',
       ]
     }),
     Components({
