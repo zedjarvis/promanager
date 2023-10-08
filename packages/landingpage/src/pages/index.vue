@@ -226,10 +226,10 @@ onMounted(() => {
         </p>
         <VBtn height="50" border>Discover all PM views</VBtn>
       </VResponsive>
-      <VCard class="pa-8">
+      <VCard class="pa-4 pa-md-8">
         <VRow no-gutters>
-          <VCol cols="12" md="7">
-            <VImg :src="tImg" height="300" />
+          <VCol cols="12" md="7" class="pr-md-16 pb-4 pb-md-0">
+            <VImg :src="tImg" :height="xs ? '' : '300'" class="mr-md-5" />
           </VCol>
           <VCol cols="12" md="5">
             <div class="d-flex align-center mb-8">
@@ -281,8 +281,8 @@ onMounted(() => {
               <a class="underline" href="/" style="font-size: 20px;">Learn more about Calendar view</a>
             </p>
           </VCol>
-          <VCol cols="12" md="7">
-            <VImg :src="cImg"  height="300"/>
+          <VCol cols="12" md="7" class="pl-md-16 pt-4 pt-md-0">
+            <VImg :src="cImg" :height="xs ? '' : '300'" class="ml-md-5" />
           </VCol>
         </VRow>
       </VCard>
