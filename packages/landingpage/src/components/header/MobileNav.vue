@@ -1,30 +1,31 @@
 <script setup lang="ts">
 import { features, plans, resources, solutions } from '@/data/navItems';
-const props = defineProps<{
-  menu: boolean | null
-}>();
+import { useAppStore } from '@store/app';
+
 
 const emit = defineEmits<{
-  (e: 'toggle-menu'): void
+  (e: 'toggle-drawer'): void
 }>()
 
-const menu = toRef(props, 'menu')
-const tab = ref('menu')
+
+const appStore = useAppStore()
+const { drawer, tab } = storeToRefs(appStore)
+
 
 function onModelUpdate() {
-  tab.value = 'menu'
-  emit('toggle-menu')
+  tab.value = 'drawer'
+  emit('toggle-drawer')
 }
 </script>
 
 <template>
-  <VNavigationDrawer @update:model-value="onModelUpdate" border v-model="menu" temporary location="top" width="auto">
+  <VNavigationDrawer @update:model-value="onModelUpdate" border v-model="drawer" temporary location="top" width="auto">
 
     <VContainer class="display-relative">
 
       <VWindow v-model="tab">
 
-        <VWindowItem value="menu">
+        <VWindowItem value="drawer">
           <VList class="px-2">
             <VListItem @click="tab = 'features'" height="50" title="Features" append-icon="mdi-chevron-right"></VListItem>
             <VDivider />
@@ -46,7 +47,7 @@ function onModelUpdate() {
 
         <VWindowItem value="features">
           <div class="fixed top-0 left-0 w-full bg-white z-50 transition-all">
-            <VBtn @click="tab = 'menu'" variant="plain" :ripple="false" prepend-icon="mdi-arrow-left">Back</VBtn>
+            <VBtn @click="tab = 'drawer'" variant="plain" :ripple="false" prepend-icon="mdi-arrow-left">Back</VBtn>
           </div>
           <VCard rounded="0" :elevation="0" class="pa-4 pt-8 pb-16 overflow-y-auto">
             <h3 class="font-inter pb-4" style="font-size: 16px;">Explore the features that help your team succeed
@@ -77,7 +78,7 @@ function onModelUpdate() {
 
         <VWindowItem value="solutions">
           <div class="fixed top-0 left-0 w-full bg-white z-50 transition-all">
-            <VBtn @click="tab = 'menu'" variant="plain" :ripple="false" prepend-icon="mdi-arrow-left">Back</VBtn>
+            <VBtn @click="tab = 'drawer'" variant="plain" :ripple="false" prepend-icon="mdi-arrow-left">Back</VBtn>
           </div>
           <VCard rounded="0" :elevation="0" class="pa-4 pt-8 pb-16 overflow-y-auto">
             <h3 class="font-inter pb-4" style="font-size: 16px;">
@@ -112,7 +113,7 @@ function onModelUpdate() {
 
         <VWindowItem value="plans">
           <div class="fixed top-0 left-0 w-full bg-white z-50 transition-all">
-            <VBtn @click="tab = 'menu'" variant="plain" :ripple="false" prepend-icon="mdi-arrow-left">Back</VBtn>
+            <VBtn @click="tab = 'drawer'" variant="plain" :ripple="false" prepend-icon="mdi-arrow-left">Back</VBtn>
           </div>
           <VCard rounded="0" :elevation="0" class="pa-4 pt-8 pb-16 overflow-y-auto">
             <div v-for="(plan, i) in plans" :key="i" class="">
@@ -152,7 +153,7 @@ function onModelUpdate() {
 
         <VWindowItem value="resources">
           <div class="fixed top-0 left-0 w-full bg-white z-50 transition-all">
-            <VBtn @click="tab = 'menu'" variant="plain" :ripple="false" prepend-icon="mdi-arrow-left">Back</VBtn>
+            <VBtn @click="tab = 'drawer'" variant="plain" :ripple="false" prepend-icon="mdi-arrow-left">Back</VBtn>
           </div>
           <VCard rounded="0" :elevation="0" class="pa-4 pt-8 pb-16 overflow-y-auto">
             <h3 class="font-inter pb-4" style="font-size: 16px;">

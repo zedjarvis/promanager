@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { features, plans, resources, solutions } from '@/data/navItems';
+import { useAppStore } from '@/store/app';
 
-const props = defineProps<{
-  menu: boolean | null,
-  tab: string | null,
-}>();
+// composables
+
 
 const emit = defineEmits<{
-  (e: 'toggle-menu'): void;
+  (e: 'toggle-drawer'): void;
 }>()
 
-const { menu, tab } = toRefs(props)
+const appStore = useAppStore()
+const { drawer, tab } = storeToRefs(appStore)
 
-
+watch(tab, () => {
+  if(drawer.value == true && tab.value == 'drawer') drawer.value = false
+})
 </script>
 
 <template>
-  <VNavigationDrawer @update:model-value="emit('toggle-menu')" border :elevation="5" v-model="menu" temporary
+  <VNavigationDrawer @update:model-value="emit('toggle-drawer')" border :elevation="5" v-model="drawer" temporary
     location="top" class="d-flex flex-grow-1! flex-shrink-1! h-max!">
     <VContainer fluid class="pa-0 ma-0 h-full!">
       <VRow no-gutters class="pa-0 ma-0 h-full!">

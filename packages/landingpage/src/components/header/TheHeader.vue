@@ -1,32 +1,32 @@
 <script setup lang="ts">
 // utilities
-import { ref } from 'vue';
+import { useAppStore } from '@/store/app';
 
 // composables
 import { useDisplay } from 'vuetify';
 
+const appStore = useAppStore()
+const { drawer, tab } = storeToRefs(appStore)
 const { smAndDown } = useDisplay()
 
-const menu = ref(false)
-const tab = ref<string | null>(null)
 
 function include() {
   return [document.querySelector('.mobile-btn'), document.querySelector('.nav-dropdown'), document.querySelector('.mobile-dropdown')]
 }
 
 function onClickOutside() {
-  tab.value = null
-  menu.value = false
+  tab.value = "drawer"
+  drawer.value = false
 }
 
 function onTabClick(value: string): void {
-  menu.value = true
+  drawer.value = true
   tab.value = value
 }
 
-function toggleMenu() {
-  menu.value = !menu.value
-  console.log('exec toggle menu')
+function toggleDrawer() {
+  drawer.value = !drawer.value
+  console.log('exec toggle drawer')
 }
 </script>
 
@@ -47,7 +47,7 @@ function toggleMenu() {
       <VTab @click="onTabClick('plans')" class="nav-tab px-3" :ripple="false" value="plans">Plans
         <VIcon size="small" icon="mdi-chevron-down" />
       </VTab>
-      <VTab @click="menu = false" href="#pricing" exact hide-slider class="nav-tab px-3" :ripple="false" value="pricing">
+      <VTab @click="drawer = false" href="#pricing" exact hide-slider class="nav-tab px-3" :ripple="false" value="pricing">
         Pricing</VTab>
       <VTab @click="onTabClick('resources')" class="nav-tab px-3" :ripple="false" value="resources">Resources
         <VIcon size="small" icon="mdi-chevron-down" />
@@ -62,13 +62,13 @@ function toggleMenu() {
         </VIcon>
       </VBtn>
     </VToolbarItems>
-    <TheHumburger class="mobile-btn" :menu="menu" @toggle-menu="toggleMenu" />
+    <TheHumburger class="mobile-btn" :drawer="drawer" @toggle-drawer="toggleDrawer" />
   </VAppBar>
 
   <!-- MOBILE MENU  -->
-  <MobileNav v-if="smAndDown" :menu="menu" :tab="tab" @toggle-menu="toggleMenu" class="mobile-dropdown" />
+  <MobileNav v-if="smAndDown" :tab="tab" @toggle-drawer="toggleDrawer" class="mobile-dropdown" />
   <!-- DESKTOP NAV  -->
-  <DesktopNav v-else :menu="menu" :tab="tab" @toggle-menu="toggleMenu" class="nav-dropdown" />
+  <DesktopNav v-else :tab="tab" @toggle-drawer="toggleDrawer" class="nav-dropdown" />
 </template>
 
 <style lang="scss">
