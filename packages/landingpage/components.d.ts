@@ -15,6 +15,7 @@ declare module 'vue' {
     NavContentCard: typeof import('./src/components/header/NavContentCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TestimonyCarousel: typeof import('./src/components/home/TestimonyCarousel.vue')['default']
     TheFooter: typeof import('./src/components/footer/TheFooter.vue')['default']
     TheHeader: typeof import('./src/components/header/TheHeader.vue')['default']
     TheHumburger: typeof import('./src/components/TheHumburger.vue')['default']

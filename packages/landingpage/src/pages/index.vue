@@ -226,7 +226,7 @@ onMounted(() => {
         </p>
         <VBtn height="50" border>Discover all PM views</VBtn>
       </VResponsive>
-      <VCard class="pa-4 pa-md-8">
+      <VCard class="pa-4 pa-md-8 rounded-lg">
         <VRow no-gutters>
           <VCol cols="12" md="7" class="pr-md-16 pb-4 pb-md-0">
             <VImg :src="tImg" :height="xs ? '' : '300'" class="mr-md-5" />
@@ -255,7 +255,7 @@ onMounted(() => {
           </VCol>
         </VRow>
       </VCard>
-      <VCard :elevation="5" class="pa-8 mt-16 mb-n16">
+      <VCard :elevation="5" class="pa-8 mt-16 mb-n16 rounded-lg">
         <VRow no-gutters>
           <VCol cols="12" md="5">
             <div class="d-flex align-center mb-6">
@@ -291,7 +291,7 @@ onMounted(() => {
 
   <!-- GROW SECTION  -->
   <VSheet tag="section" id="grow-section" class="font-inter py-16">
-    <VContainer class="pt-16">
+    <VContainer class="pt-16 mb-16">
       <VRow no-gutters>
         <VCol cols="12" md="8">
           <p class="section-subtitle">Powerful ways to grow</p>
@@ -348,6 +348,9 @@ onMounted(() => {
             <VBtn height="50" variant="outlined" class="mt-6 text-uppercase">Explore Enterprice</VBtn>
           </VCard>
         </VCol>
+      </VRow>
+      <VRow class="pt-16">
+        <TestimonyCarousel />
       </VRow>
     </VContainer>
   </VSheet>
@@ -427,7 +430,7 @@ onMounted(() => {
                 timelines, calendars, etc.</p>
             </div>
             <div class="pt-6 px-4 w-full">
-              <VBtn height="50" color="primary" variant="outlined">Try for free</VBtn>
+              <VBtn height="50" color="#35bada" variant="outlined">Try for free</VBtn>
             </div>
             <div class="px-4 pt-4 pb-8">
               <p class="inline-block h-30px w-full">

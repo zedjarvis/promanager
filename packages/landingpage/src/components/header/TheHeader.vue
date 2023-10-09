@@ -26,6 +26,7 @@ function onTabClick(value: string): void {
 
 function toggleDrawer() {
   drawer.value = !drawer.value
+  if(drawer.value == false) tab.value = 'drawer'
   console.log('exec toggle drawer')
 }
 </script>
